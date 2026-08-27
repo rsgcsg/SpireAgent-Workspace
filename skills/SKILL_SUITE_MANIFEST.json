@@ -1,0 +1,16 @@
+{
+  "suite": "spireagent-workspace-skill-suite",
+  "governance_repository": "rsgcsg/SpireAgent-Workspace",
+  "updated": "2026-08-28T02:35:00+10:00",
+  "skills": {
+    "github-remote-operator": {"version":"1.2.0","scope":"workspace-generic","source_path":"skills/github-remote-operator","package_sha256":"c79273a2a4965bf2a61aad618e0a490829b43b991d5b656ca616b3702d12df99"},
+    "spireagent-codex-prompt-writer": {"version":"2.1.0","scope":"spireagent-project","source_path":"skills/spireagent-codex-prompt-writer","package_sha256":"72f4b22bea7f0d6384c28387a040ccf3b2c2fc61fc3c5b7d9ab4e3c7d33773ef"},
+    "spireagent-context-handoff": {"version":"1.1.0","scope":"spireagent-project","source_path":"skills/spireagent-context-handoff","package_sha256":"c837710be683c301b007a1648540dfdce2266640b82751d4495b6a96c1facf0a"},
+    "spireagent-conversation-organizer": {"version":"2.1.0","scope":"spireagent-project","source_path":"skills/spireagent-conversation-organizer","package_sha256":"770046e9a5d4beab03434a8a8e4b6815d6aee35ecb7658d30d9dab663e27e9e9"},
+    "spireagent-explainer": {"version":"2.1.0","scope":"spireagent-project","source_path":"skills/spireagent-explainer","package_sha256":"e781d0d49a520feaf74d4266dfe53bfc13e0dbbf24d9e0c2d81ad7bfb52403c8"},
+    "spireagent-workspace-governor": {"version":"1.1.0","scope":"spireagent-project","source_path":"skills/spireagent-workspace-governor","package_sha256":"0574696f7b12cbd6af37c2b92bf65e8856e531d9a0af121d387466b9f3574359"},
+    "workspace-knowledge-librarian": {"version":"1.1.0","scope":"workspace-generic","source_path":"skills/workspace-knowledge-librarian","package_sha256":"3297a3ca1c918bf7b3c2a0bef9567870bb62f4e2fb21f76a168db848e3aab708"},
+    "workspace-skill-maintainer": {"version":"1.1.0","scope":"workspace-generic","source_path":"skills/workspace-skill-maintainer","package_sha256":"96eec49d67835b50bd055f2fae4f725b232aebebcd43937ce2de99f0436280da"}
+  },
+  "authority_note": "This manifest governs Skill deployment versions only. Platform/STPD repositories govern code/runtime/research truth."
+}
