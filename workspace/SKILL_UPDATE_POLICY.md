@@ -36,6 +36,8 @@ For multiple changed Skills:
 
 Do not infer a callable/renderable Skill-edit action from a screenshot, prior conversation, or the existence of the Skills UI. Never promise a card will appear unless the current surface can actually produce it. Rendering an edited card is delivery evidence, not save/install evidence.
 
+The 2026-08-28 correction that motivated this rule is explicit: a prior reply promised a card below the message but no card rendered. Treat that as product-surface evidence that assistant policy text alone cannot force a Skill card.
+
 A complete validated `skill.zip` remains a release/rollback artifact. It is the user-facing fallback only when no usable in-product edit surface or supported deployment API is actually available, or when the user explicitly requests ZIP.
 
 ## Reconciliation closeout
