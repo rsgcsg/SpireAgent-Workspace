@@ -13,12 +13,12 @@ Track five independent states:
 - `LOCAL_VALIDATION`: deterministic structure/package/integrity/hash tests;
 - `PRODUCT_SCAN`: actual ChatGPT product acceptance of the edited/uploaded Skill;
 - `DEPLOYMENT`: actual save/install state;
-- `DELIVERY`: user received an actionable card/action or visible working download link;
+- `DELIVERY`: the user actually received an actionable Skill action or a retrievable package;
 - `REAL_INVOCATION`: representative behavior after the saved/installed update.
 
 Local validation and green CI are preflight evidence, not proof that ChatGPT accepted/saved the Skill or that the user actually received the artifact.
 
-When Skill creation/edit/install behavior itself may have changed, check current official OpenAI Help/Developer documentation instead of relying only on remembered UI behavior. Official documentation can confirm a product capability without proving every assistant runtime exposes a callable card-rendering action.
+When Skill creation/edit/install/file-delivery behavior may have changed, check current official OpenAI Help/Developer documentation instead of relying only on remembered UI behavior. Official documentation currently confirms that ChatGPT can create or modify Skills through chat and prompt installation, and that files uploaded to or created in ChatGPT are saved to Library where Library is available. It does **not** define `sandbox:/mnt/data/...` Markdown as a stable user-facing download contract.
 
 ## One-command user update
 
@@ -26,33 +26,36 @@ When Skill creation/edit/install behavior itself may have changed, check current
 
 ### Default delivery contract
 
-If the current ChatGPT conversation can actually render existing Skills as **edited Skill cards/actions**, use that route before ZIP delivery.
+Use the strongest product-visible surface actually available:
 
-For multiple changed Skills:
+1. real conversation-delivered edited Skill card/action;
+2. an explicitly available and authorized Skill deployment API/action;
+3. a native generated-file attachment/file card for the complete validated `skill.zip`;
+4. Library retrieval/download for a file actually created/saved in ChatGPT;
+5. `sandbox:` Markdown only as best-effort compatibility when the current client is known to render it.
 
-1. prepare and validate the complete changed set first;
-2. if the product supports multiple edited cards/actions in one response, present all changed Skills together;
-3. do not ask the user to pre-open editors merely to expose the surface;
-4. leave only unavoidable `Save changes` / `保存更改` or equivalent product confirmations to the user;
-5. record each Skill's product/deployment/delivery result independently;
-6. only use sequential handoff when the product itself requires it.
+For multiple changed Skills, prepare and validate the complete changed set first. Present multiple edited cards together only when the product actually demonstrates that capability. Current official Skills documentation confirms chat-based Skill creation/modification but does not promise multi-card batch rendering in a single turn.
 
-Do not infer a callable/renderable Skill-edit action from a screenshot, prior conversation, or the existence of the Skills UI. Never promise a card will appear unless the current surface can actually produce it. Rendering an edited card is delivery evidence, not save/install evidence.
+Do not require the user to pre-open editors merely to expose a route. Never promise a card, file attachment, or download that the current surface has not actually produced. Rendering an edited card is delivery evidence, not save/install evidence.
 
-A complete validated `skill.zip` remains a release/rollback artifact and deterministic user-facing fallback. If no real in-product action is exposed, return verified clickable packages for the whole changed set in the same response. Never leave the user with neither cards nor download links.
+### File delivery is a separate gate
 
-### ZIP delivery is a separate gate
+The 2026-08-28 repeated blank-link failure established that package existence and emitted Markdown are not delivery.
 
-The 2026-08-28 repeated blank-link failure established that having a ZIP under a working directory is not enough. For every fallback package:
+For each ZIP fallback:
 
-1. restage the final archive to a simple unique file directly under `/mnt/data`;
-2. verify the exact final path exists and is non-empty;
-3. run ZIP integrity validation and SHA-256 on that exact final path;
-4. emit a literal standalone Markdown link such as `[Download <skill>](sandbox:/mnt/data/<filename>.zip)`;
-5. keep link text visible in normal prose, not only in a table/bare bullet;
-6. if the user reports blank/missing links, set `DELIVERY=FAIL`, restage to fresh top-level filenames, re-verify, and immediately issue replacement links.
+1. verify the final archive exists, is non-empty, passes ZIP integrity, and matches the expected SHA-256;
+2. prefer a native generated-file attachment/file card when the current conversation exposes one;
+3. when ChatGPT created/saved the file and Library is available, provide the exact filename and use Library as the durable retrieval/download surface;
+4. treat `sandbox:/mnt/data/...` as an internal compatibility reference, not as the product contract;
+5. if a sandbox link is blank, hidden, or non-clickable, set `DELIVERY=FAIL` and **switch transport** rather than repeatedly restaging/re-emitting the same mechanism;
+6. if no product-native attachment, Library retrieval, deployment action, or other verified transport is available, report `DELIVERY_BLOCKED_CURRENT_SURFACE` instead of claiming success.
 
-Never claim `DELIVERY=PASS` from file existence, hash output, or assistant intent alone.
+Never claim `DELIVERY=PASS` from file existence, hash output, assistant intent, or emitted sandbox Markdown alone.
+
+## Suite-level update option
+
+If recurring Workspace-wide Skill updates make per-Skill product installation expensive, evaluate a **skill-only Workspace Plugin**. Current official Plugin documentation supports a single plugin containing multiple Skills. This is the preferred direction to investigate for one-install/one-governance suite UX; do not assume the existing personal-Skill chat editor can batch-render all Skill updates until the product proves that capability.
 
 ## Reconciliation closeout
 
