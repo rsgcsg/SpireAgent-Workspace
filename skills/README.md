@@ -1,17 +1,13 @@
-# Workspace Skill Registry
+# Workspace Skill Source Registry
 
-Skill deployment/version authority is `SKILL_SUITE_MANIFEST.json`.
+This directory is the governed source authority for the SpireAgent workspace Skill suite.
 
-Each ChatGPT Skill is packaged and installed separately as its own `skill.zip`; never upload a multi-Skill archive as one Skill.
+Because the GitHub connector should not create dozens of tiny file commits, canonical Skill source is stored as one exact reconstructable snapshot per Skill under `skills/source-snapshots/<skill-name>.json`.
 
-Current suite:
-- spireagent-workspace-governor
-- spireagent-explainer
-- spireagent-codex-prompt-writer
-- spireagent-conversation-organizer
-- spireagent-context-handoff
-- github-remote-operator
-- workspace-knowledge-librarian
-- workspace-skill-maintainer
+Each snapshot contains the complete text source tree for that Skill (`SKILL.md`, `agents/`, `references/`, optional `scripts/` and `assets/`). `SKILL_SUITE_MANIFEST.json` binds the snapshot's deterministic source-tree hash, release version, prepared `skill.zip` hash, trigger scope, connector expectations, and deployment state.
 
-Installed copies are deployments and may lag this manifest. On an explicit Skill update request, use `workspace-skill-maintainer` + built-in `skill-creator`, validate/package the changed Skill, update its hash/version here, then roll out the new package.
+`workspace/scripts/validate_skill_manifest.py` verifies every source snapshot, embedded Skill version, deterministic source-tree hash, and package hash format. `.github/workflows/governance.yml` runs the validation on governance PRs and integration pushes.
+
+To edit a Skill, materialize its snapshot, use `workspace-skill-maintainer` + built-in `skill-creator`, validate/package the complete Skill, replace the source snapshot, and update the manifest. Do not hand-edit the manifest to invent package/source state.
+
+Platform/STPD implementation/runtime/research authority remains in their owning repositories.

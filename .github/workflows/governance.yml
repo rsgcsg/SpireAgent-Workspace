@@ -1,0 +1,24 @@
+name: governance
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  skill-manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate Skill source and manifest alignment
+        run: python workspace/scripts/validate_skill_manifest.py
+      - name: Git whitespace check
+        run: git diff --check
