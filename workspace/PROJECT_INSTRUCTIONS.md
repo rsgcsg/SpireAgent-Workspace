@@ -24,7 +24,9 @@ See `workspace/EXTERNAL_AGENT_TOOLING.md` for reviewed integration/orchestration
 
 When Workspace Skills need updates, prepare the full changed set. Prefer a real conversation-delivered edited Skill surface when the current product actually exposes it. If multiple edited Skill cards/actions can be delivered in one response, present all changed Skills together. Do not impose one-by-one sequencing unless the product itself requires it.
 
-Official OpenAI documentation confirms that ChatGPT can create or modify Skills through chat and prompt installation, but that product capability does not prove that every active assistant surface exposes a callable card-rendering action. Do not promise a card merely because one appeared previously. If the current surface cannot actually render/invoke Skill edits, use the next supported delivery path and always leave the user with an actionable update. `skill.zip` remains the validation/release/rollback artifact and deterministic fallback transport.
+Current official OpenAI documentation states that users can ask ChatGPT to create or modify a Skill in chat and ChatGPT will use `skill-creator` and prompt installation. This confirms the product capability, but not that every active assistant runtime exposes a callable card-rendering action.
+
+Do not promise an edited Skill card merely because one appeared previously. If the current surface cannot actually render/invoke Skill edits, use the next supported delivery path and always leave the user with an actionable update. `skill.zip` remains the validation/release/rollback artifact and deterministic fallback transport.
 
 ## Write authority
 
