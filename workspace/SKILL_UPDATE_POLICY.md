@@ -17,6 +17,8 @@ Track four independent states:
 
 Local validation and green CI are preflight evidence, not proof that ChatGPT accepted or saved the Skill.
 
+When Skill creation/edit/install behavior itself may have changed, check current official OpenAI Help/Developer documentation instead of relying only on remembered UI behavior. Official documentation currently confirms that ChatGPT can create or modify Skills through chat and prompt installation, but that does not prove every assistant runtime exposes a callable card-rendering action.
+
 ## One-command user update
 
 `更新 SpireAgent Skills` and `一键更新 SpireAgent Skills` explicitly authorize the governed Workspace Skill update workflow: compare deployments with the manifest, reuse canonical release artifacts for deployment-only drift, rebuild only genuinely changed Skills, validate/package the full changed set, and prepare governed remote reconciliation.
@@ -38,7 +40,7 @@ Do not infer a callable/renderable Skill-edit action from a screenshot, prior co
 
 The 2026-08-28 correction that motivated this rule is explicit: a prior reply promised a card below the message but no card rendered. Treat that as product-surface evidence that assistant policy text alone cannot force a Skill card.
 
-A complete validated `skill.zip` remains a release/rollback artifact. It is the user-facing fallback only when no usable in-product edit surface or supported deployment API is actually available, or when the user explicitly requests ZIP.
+A complete validated `skill.zip` remains a release/rollback artifact and deterministic user-facing fallback. If no real in-product action is exposed, return verified clickable packages for the whole changed set in the same response. Never leave the user with neither cards nor download links.
 
 ## Reconciliation closeout
 
