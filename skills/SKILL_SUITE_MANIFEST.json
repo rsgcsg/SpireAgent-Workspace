@@ -3,56 +3,99 @@
   "schema_version": 2,
   "governance_repository": "rsgcsg/SpireAgent-Workspace",
   "source_authority": "validated_release_archive",
-  "updated": "2026-08-28T12:53:00+10:00",
+  "updated": "2026-08-28T17:45:00+10:00",
+  "direct_project_chat_render": "partial",
+  "product_package_hash_observation": "unavailable_from_current_product_surface",
   "skills": {
     "github-remote-operator": {
-      "version": "1.2.1",
+      "version": "1.3.0",
       "scope": "workspace-generic",
       "source_archive_path": "skills/releases/github-remote-operator/skill.zip",
-      "package_sha256": "323f0910668eec41c0f4a3182e80634bc25f1945a19910ed13a2a519a961076b"
+      "package_sha256": "e39b12aadecf67fb3a6c9021b165044e6f91435875822d6dd0dfa12faf5946a1",
+      "chatgpt_product_scan": "pass",
+      "deployment": "pass",
+      "delivery": "pass",
+      "real_invocation": "pass_current_agent_smoke",
+      "product_package_hash": "unavailable_from_current_product_surface"
     },
     "spireagent-codex-prompt-writer": {
-      "version": "2.2.0",
+      "version": "2.4.0",
       "scope": "spireagent-project",
       "source_archive_path": "skills/releases/spireagent-codex-prompt-writer/skill.zip",
-      "package_sha256": "50095163ea8b41f180e7c80127525cf337ab9652a3f48fd93a3a5f2f80c59293"
+      "package_sha256": "9f5ca791cf606bad2b5025845117d339156cc076b99bdaf95e5b2c8ee78508e5",
+      "chatgpt_product_scan": "pass",
+      "deployment": "pass",
+      "delivery": "pass",
+      "real_invocation": "pass_current_agent_smoke",
+      "product_package_hash": "unavailable_from_current_product_surface"
     },
     "spireagent-context-handoff": {
-      "version": "1.2.0",
+      "version": "1.4.0",
       "scope": "spireagent-project",
       "source_archive_path": "skills/releases/spireagent-context-handoff/skill.zip",
-      "package_sha256": "863c51eaea6801ef13a61631e6281a80b2988d6776373d49daeb2dbdfddfccc6"
+      "package_sha256": "90c22ae35c5de66f2541417cac55faa666dec66a8db007ef8483061a57cbeae5",
+      "chatgpt_product_scan": "pass",
+      "deployment": "pass",
+      "delivery": "pass",
+      "real_invocation": "pass_current_agent_smoke",
+      "product_package_hash": "unavailable_from_current_product_surface"
     },
     "spireagent-conversation-organizer": {
-      "version": "2.3.0",
+      "version": "2.4.0",
       "scope": "spireagent-project",
       "source_archive_path": "skills/releases/spireagent-conversation-organizer/skill.zip",
-      "package_sha256": "955ead4e98c40815d9e38e53d2a06064ba14ff87f7ded6ab86daf6c36d80ecf7"
+      "package_sha256": "b4b395533a1de42f7fda8cb50a8783c0ad7f7929382b8d28133a8729e5f66c3f",
+      "chatgpt_product_scan": "pass",
+      "deployment": "pass",
+      "delivery": "pass",
+      "real_invocation": "pass_current_agent_smoke",
+      "product_package_hash": "unavailable_from_current_product_surface"
     },
     "spireagent-explainer": {
-      "version": "2.2.0",
+      "version": "2.3.0",
       "scope": "spireagent-project",
       "source_archive_path": "skills/releases/spireagent-explainer/skill.zip",
-      "package_sha256": "285eb74b70fd0d8fb6da8cc1092187950940b093fd5727c87f4c39918904a7fd"
+      "package_sha256": "d5930ea6fa9c48f992faa36e79c3ff8aecfea4f794692d3a1fc9ef3ea7ad86c8",
+      "chatgpt_product_scan": "pass",
+      "deployment": "pass",
+      "delivery": "pass",
+      "real_invocation": "pass_current_agent_smoke",
+      "product_package_hash": "unavailable_from_current_product_surface"
     },
     "spireagent-workspace-governor": {
-      "version": "1.2.0",
+      "version": "1.6.0",
       "scope": "spireagent-project",
       "source_archive_path": "skills/releases/spireagent-workspace-governor/skill.zip",
-      "package_sha256": "16c4099f4a6cc8447c20da81583db0e2eba11f56f9db5bacd7d179427936f534"
+      "package_sha256": "961e1bb3381e049e4f1f39729d7982646dd2432bbda2a782536a700cc0bf569e",
+      "chatgpt_product_scan": "pass",
+      "deployment": "pass",
+      "delivery": "pass",
+      "real_invocation": "pass_current_agent_smoke",
+      "product_package_hash": "unavailable_from_current_product_surface"
     },
     "workspace-knowledge-librarian": {
-      "version": "1.1.1",
+      "version": "1.4.0",
       "scope": "workspace-generic",
       "source_archive_path": "skills/releases/workspace-knowledge-librarian/skill.zip",
-      "package_sha256": "b77b4ab8d851adbaf98ca4a3e86e1151a5ec92fe2c5ac37addef3ab918b6104a"
+      "package_sha256": "f9582fc0e8aef1dade34c4264d02c2d531c396737e96563278ea6f83f945e326",
+      "chatgpt_product_scan": "pass",
+      "deployment": "pass",
+      "delivery": "pass",
+      "real_invocation": "pass_current_agent_smoke",
+      "product_package_hash": "unavailable_from_current_product_surface"
     },
     "workspace-skill-maintainer": {
-      "version": "1.2.1",
+      "version": "1.9.1",
       "scope": "workspace-generic",
       "source_archive_path": "skills/releases/workspace-skill-maintainer/skill.zip",
-      "package_sha256": "e3c327a203a4d6b16b94fdbaaff64ed84879861eb0ddc947bb0e818434754a6c"
+      "package_sha256": "a88814412de9e273ea4dc578fff3abb6b4c0a9d4a5913169b748a6647852d5c4",
+      "chatgpt_product_scan": "pass",
+      "deployment": "pass",
+      "delivery": "pass",
+      "real_invocation": "pass_current_agent_smoke",
+      "product_package_hash": "unavailable_from_current_product_surface",
+      "repository_release_note": "Self-contained canonical repository package reconstructed for 1.9.1; product package bytes/hash are unavailable from the current product surface."
     }
   },
-  "authority_note": "Each release archive contains the complete validated Skill source. Project-specific Skills are stable workflow shells and refresh mutable Workspace/Platform/STPD truth through GitHub. Platform/STPD repositories remain the authorities for code/runtime/research truth."
+  "authority_note": "Each release archive is the canonical locally validated repository package for its Skill version. ChatGPT product deployment was verified separately by re-reading the installed Skill version and exercising representative behavior in the current agent run. The current product surface does not expose the installed package bytes/hash, so repository package_sha256 must not be interpreted as an observed ChatGPT package hash. Platform/STPD repositories remain the authorities for code/runtime/research truth."
 }
