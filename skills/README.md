@@ -16,6 +16,20 @@ Current suite:
 
 Project-specific SpireAgent Skills are intentionally stable workflow shells. They refresh mutable Workspace/Platform/STPD truth through the GitHub connector instead of embedding frequently changing project status in the Skill package.
 
-Use the user command `更新 SpireAgent Skills` for the governed update flow. The maintainer compares installed versions with this manifest, reuses canonical archives for deployment-only drift, rebuilds only genuinely changed Skills, and returns only changed packages. Narrow `chore/workspace/skill-update-*` PRs are eligible for automatic merge to `develop` after all Skill Governance checks pass; policy/router/workflow changes are not.
+## Default update UX
 
-Installed copies are deployments and may lag this manifest. Repository merge does not itself prove ChatGPT/Codex installation or publication.
+Use the user command `更新 SpireAgent Skills` or `一键更新 SpireAgent Skills` for the governed update flow.
+
+When the current ChatGPT conversation can render an existing Skill as an **edited Skill card**, that is the default user-facing delivery path:
+
+1. prepare and validate one changed Skill;
+2. present that Skill directly in the conversation as an edited Skill;
+3. leave only the final `Save changes` / `保存更改` action to the user;
+4. verify the saved/installed state;
+5. only then present the next changed Skill.
+
+Do **not** require the user to navigate to or pre-open the Skill editor merely to expose this path. Do **not** present a stack of ZIP downloads when edited Skill cards are available. `skill.zip` remains the canonical validation/release artifact and fallback transport, not the default user update UX.
+
+The maintainer still compares installed versions with this manifest, reuses canonical releases for deployment-only drift, and rebuilds only genuinely changed Skills. Narrow `chore/workspace/skill-update-*` PRs are eligible for automatic merge to `develop` after all Skill Governance checks pass; policy/router/workflow changes are not.
+
+Installed copies are deployments and may lead or lag this manifest during reconciliation. Repository merge does not itself prove ChatGPT/Codex installation or publication.
