@@ -1,0 +1,41 @@
+name: Skill Governance
+
+on:
+  pull_request:
+    paths:
+      - 'skills/**'
+      - 'scripts/validate_skill_suite.py'
+      - '.github/workflows/skill-governance.yml'
+  push:
+    branches: [develop, main]
+    paths:
+      - 'skills/**'
+      - 'scripts/validate_skill_suite.py'
+      - '.github/workflows/skill-governance.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: validate / ${{ matrix.skill }}
+    strategy:
+      fail-fast: false
+      matrix:
+        skill:
+          - github-remote-operator
+          - spireagent-codex-prompt-writer
+          - spireagent-context-handoff
+          - spireagent-conversation-organizer
+          - spireagent-explainer
+          - spireagent-workspace-governor
+          - workspace-knowledge-librarian
+          - workspace-skill-maintainer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python scripts/validate_skill_suite.py --skill "${{ matrix.skill }}"
