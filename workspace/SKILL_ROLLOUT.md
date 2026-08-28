@@ -10,17 +10,30 @@ Workspace Skills are stable workflow shells. Mutable Platform/STPD truth stays i
 
 Keep these states separate:
 
-1. `LOCAL_VALIDATION`: skill-creator validator/package, references/scripts, ZIP integrity and SHA-256.
-2. `PRODUCT_SCAN`: actual ChatGPT product acceptance of the created/modified/uploaded Skill.
-3. `DEPLOYMENT`: actual save/install state.
-4. `DELIVERY`: the user actually received an actionable Skill action or retrievable package.
-5. `REAL_INVOCATION`: representative behavior after the saved/installed update.
+1. `DIRECT_PROJECT_CHAT_RENDER`: whether an ordinary Project conversation actually rendered the requested native Skill card/action.
+2. `LOCAL_VALIDATION`: skill-creator validator/package, references/scripts, ZIP integrity and SHA-256.
+3. `PRODUCT_SCAN`: actual ChatGPT product acceptance of the created/modified/uploaded Skill.
+4. `DEPLOYMENT`: actual save/install state.
+5. `DELIVERY`: the user actually received an actionable Skill action or retrievable package.
+6. `REAL_INVOCATION`: representative behavior after the saved/installed update.
 
 A local PASS or green GitHub CI is preflight evidence only. It does not prove the ChatGPT product accepted or saved the Skill, and it does not prove the user received the artifact.
 
+## Observed direct-render result
+
+On 2026-08-28, one ordinary Project conversation prepared eight complete locally validated SpireAgent Skill packages. Only the `spireagent-workspace-governor` edited-Skill card was visible; the other seven prepared Skills did not render as native cards/downloads.
+
+Treat that result as `DIRECT_PROJECT_CHAT_RENDER=PARTIAL`.
+
+Consequences:
+
+- a visible exact-target card may be used opportunistically for that Skill;
+- never infer delivery of other Skills from one visible card;
+- generic Project-chat multi-card rendering is not the default Workspace suite-update transport.
+
 ## Default product deployment
 
-The normal create/update path is the dedicated native Skill-chat surface:
+The reliable default create/update path is the dedicated native Skill-chat surface:
 
 `Plugins -> Skills -> Create -> Create with chat`
 
@@ -28,9 +41,9 @@ The working Project conversation prepares the complete change and gives the user
 
 For new Skills, use the same dedicated Skill-chat surface with a complete creation prompt describing trigger, workflow, tools/connectors, outputs, and authority/safety boundaries.
 
-This is the default because it deliberately enters the product workflow designed for Skill creation/modification. The working Project conversation remains the place where project context and engineering analysis are assembled; the Skill-chat conversation is the deployment/edit surface.
+The working Project conversation remains the place where project context and engineering analysis are assembled; the Skill-chat conversation is the native editing/install surface.
 
-If the current conversation already exposes a stronger direct native edited-Skill action, use it. If the dedicated Skill-chat route is unavailable or fails, use this fallback order:
+If the current Project conversation already renders the exact target Skill card, use that card for the target Skill. Do not wait for or promise the remaining cards. If the dedicated Skill-chat route is unavailable or fails, use this fallback order:
 
 1. explicitly available and authorized deployment API/action;
 2. native generated-file attachment/file card for the validated `skill.zip`;
@@ -38,11 +51,11 @@ If the current conversation already exposes a stronger direct native edited-Skil
 4. explicitly authorized short-lived Workspace Git relay with normal GitHub download;
 5. `sandbox:` only as best-effort compatibility.
 
-Do not promise cards or attachments based on earlier screenshots. Rendering an edited card is delivery evidence, not save/install evidence.
+Rendering an edited card is delivery evidence, not save/install evidence.
 
 ## Multi-Skill updates
 
-Prepare and validate the complete changed Skill set together. By default generate **one Skill Chat Prompt per changed Skill** so target identity stays unambiguous. A combined prompt is acceptable only after the dedicated Skill-chat surface has been verified to update several existing Skills correctly in one workflow.
+Prepare and validate the complete changed Skill set together. By default generate **one Skill Chat Prompt per changed Skill** so target identity stays unambiguous. A combined prompt is acceptable only after the dedicated Skill-chat surface has been explicitly verified to update several existing Skills correctly in one workflow.
 
 Do not confuse preparation batching with deployment batching: analysis may be batch-first while product save/install remains per Skill.
 
