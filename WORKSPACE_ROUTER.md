@@ -10,10 +10,19 @@ It is not a third main project, not a mirror of ChatGPT Library, and not an impl
 - `rsgcsg/SpireAgent-Workspace`: selected Workspace-to-Codex projection, cross-project routing/shared standards, Workspace-level Skill release/manifest, handoffs, knowledge pointers, current snapshots, and temporary relay policy.
 - `rsgcsg/STS2-AI-PLATFORM`: Platform Foundation code/contracts/runtime/evidence and its repo-owned agent/Skill governance.
 - `rsgcsg/STS2-The-Perfect-Defect`: STPD research/data/model/training/evaluation and its repo-owned agent/Skill governance.
+- Public web research: selective freshness/upstream/ecosystem input, never an owning source of project truth.
 
 Routine single-repository Platform/STPD work should go directly to the owning repository. Workspace is optional enrichment, not a required bootstrap dependency.
 
-See `workspace/KNOWLEDGE_PLANE.md` for storage/lifecycle rules. Exact Platform/STPD refs remain project truth.
+See `workspace/KNOWLEDGE_PLANE.md` for storage/lifecycle rules and `workspace/WEB_RESEARCH_POLICY.md` for bounded external research. Exact Platform/STPD refs remain project truth.
+
+## Web research routing
+
+Do not globally forbid Internet use and do not browse without a concrete reason. Use exact repo truth first for project facts, then recent curated Workspace references for repeated external knowledge, then a bounded web pass when current external product/API/tooling/standards/upstream behavior or a mature public solution materially affects the decision.
+
+Prefer official/primary sources, start with a small query budget, and stop when the decision is supported. If the finding is likely to matter again, curate it through `workspace-knowledge-librarian` instead of repeatedly searching. Codex may use the same bounded pattern; do not grant every subagent independent web access by default.
+
+See `workspace/EXTERNAL_AGENT_TOOLING.md` for reviewed current integration/orchestration options.
 
 ## Library/product boundary
 
@@ -25,11 +34,11 @@ Workspace-level Skill source/releases and their manifest are governed here. Plat
 
 For Workspace Skills, local validation, ChatGPT PRODUCT_SCAN, installed deployment state, and GitHub manifest state are separate evidence classes that must be reconciled explicitly.
 
-When the current ChatGPT product surface can actually render existing Skills as edited Skill cards/actions, prefer that in-product route over ZIP. Prepare the full changed Skill set first. If the product supports multiple edited Skill cards/actions in one response, present all changed Skills together; do not impose artificial one-by-one sequencing. Only fall back to sequential interaction when the product surface itself requires it.
+Current OpenAI product documentation confirms that ChatGPT can create or modify Skills through chat and prompt installation. When the current product surface actually exposes edited Skill cards/actions, prefer that in-product route over ZIP and present the complete changed set together when batch delivery is supported.
 
-Do not promise that an edited Skill card will appear merely because one appeared in a prior conversation or screenshot. A 2026-08-28 reply promised a card below the message but no card rendered; treat that as explicit evidence that assistant policy text alone cannot force the product UI. A card/save/install is a product capability/result and must be actually visible or confirmed.
+Do not promise that a card will appear merely because it appeared in a prior conversation or screenshot. Product capability is not the same as a callable action in every assistant surface. If the current surface does not actually produce a card/deployment action, provide verified downloadable Skill packages so the user is never left with neither cards nor links.
 
-ZIP remains a release/rollback artifact and fallback transport when no usable in-product edit/deployment surface is available or the user explicitly requests it.
+ZIP remains a release/rollback artifact and deterministic fallback transport.
 
 ## Skill routing
 
@@ -48,7 +57,8 @@ ZIP remains a release/rollback artifact and fallback transport when no usable in
 2. Read the smallest relevant Workspace Git relay files.
 3. Refresh exact Platform/STPD remote refs before project-state claims.
 4. Report cache/snapshot/deployment drift instead of silently choosing one copy.
-5. For routine single-repo work, continue in the owning repository without requiring further Workspace reads.
+5. Use bounded web research only for unresolved/current external questions that materially affect the task.
+6. For routine single-repo work, continue in the owning repository without requiring further Workspace reads.
 
 ## Reconciliation defaults
 
