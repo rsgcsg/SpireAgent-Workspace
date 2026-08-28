@@ -25,7 +25,9 @@ Workspace-level Skill source/releases and their manifest are governed here. Plat
 
 For Workspace Skills, local validation, ChatGPT PRODUCT_SCAN, installed deployment state, and GitHub manifest state are separate evidence classes that must be reconciled explicitly.
 
-When ChatGPT exposes an existing Skill edit surface, the default rollout is **one Skill at a time through in-product edit/save**. Prepare the complete validated update for that Skill, stop at the product's final `Save changes` / `保存更改` action, confirm the resulting installed version, and only then advance to the next Skill. Do not present ZIP download/re-upload as the normal path when an editable Skill already exists. ZIP remains a fallback only when no usable in-product edit/deployment surface is available or the user explicitly requests it.
+When the current ChatGPT product surface can actually render existing Skills as edited Skill cards/actions, prefer that in-product route over ZIP. Prepare the full changed Skill set first. If the product supports multiple edited Skill cards/actions in one response, present all changed Skills together; do not impose artificial one-by-one sequencing. Only fall back to sequential interaction when the product surface itself requires it.
+
+Do not promise that an edited Skill card will appear merely because one appeared in a prior conversation or screenshot. A card/save/install is a product capability/result and must be actually visible or confirmed. ZIP remains a release/rollback artifact and fallback transport when no usable in-product edit/deployment surface is available or the user explicitly requests it.
 
 ## Skill routing
 
