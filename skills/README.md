@@ -2,7 +2,7 @@
 
 Canonical Skill deployment/source authority is `SKILL_SUITE_MANIFEST.json`. Each manifest entry points to one complete validated archive at `skills/releases/<skill-name>/skill.zip` and binds its exact SHA-256.
 
-Each ChatGPT Skill is installed separately. Never upload a multi-Skill archive as one Skill.
+Each ChatGPT Skill is installed separately unless a supported higher-level Plugin intentionally packages multiple Skills.
 
 Current suite:
 - spireagent-workspace-governor
@@ -20,25 +20,23 @@ Project-specific SpireAgent Skills are intentionally stable workflow shells. The
 
 Use `更新 SpireAgent Skills` or `一键更新 SpireAgent Skills` for the governed update flow.
 
-Prepare and validate the complete changed Skill set first. Check current official OpenAI documentation when Skill creation/edit/install behavior may have changed.
+Prepare and validate the complete changed Skill set first. Check current official OpenAI documentation when Skill creation/edit/install/file-delivery behavior may have changed.
 
-If the current ChatGPT product surface can actually render existing Skills as edited Skill cards/actions, prefer that surface over ZIP. When multiple edited cards/actions can be delivered in one response, present all changed Skills together. Do not impose one-by-one sequencing unless the product itself requires sequential interaction.
+Preferred user-facing surfaces, in order:
 
-Do not require the user to pre-open Skill editors merely to expose an in-product update route. Do not promise that a card will appear merely because a prior reply or screenshot showed one.
+1. real conversation-delivered edited Skill card/action;
+2. supported deployment API/action when explicitly available and authorized;
+3. native generated-file attachment/file card for the validated package;
+4. Library retrieval/download for files actually created/saved in ChatGPT;
+5. `sandbox:` Markdown only as best-effort compatibility when the active client is known to render it.
 
-A rendered edited card is delivery evidence; save/install/product acceptance still requires confirmation. `skill.zip` remains the canonical validation/release/rollback artifact and deterministic fallback transport.
+Do not promise that a card or attachment will appear merely because one appeared previously. Do not treat package existence or emitted `sandbox:` Markdown as delivery success. The 2026-08-28 repeated blank-link reports established that internal sandbox references can be hidden by the active client.
 
-### Deterministic ZIP handoff
+`skill.zip` remains the canonical validation/release/rollback artifact. `LOCAL_VALIDATION=PASS` does not imply `DELIVERY=PASS`, `PRODUCT_SCAN=PASS`, or `DEPLOYMENT=PASS`.
 
-If no real in-product update action is exposed, return working downloads for the whole changed set in the same response. Delivery is a separate gate from packaging:
+Current official OpenAI documentation confirms chat-based Skill creation/modification and says ChatGPT-created/uploaded files are saved to Library where available. It does not guarantee multi-card batch rendering in a single chat turn and does not document `sandbox:/mnt/data/...` as a stable user-facing download contract.
 
-1. restage every user-facing package to a simple unique top-level path such as `/mnt/data/<skill>-<version>-skill.zip`;
-2. verify that exact final path is non-empty, passes ZIP integrity, and matches the expected SHA-256;
-3. emit an explicit standalone Markdown link for each package, e.g. `[Download <skill>](sandbox:/mnt/data/<filename>.zip)`;
-4. do not rely on blank bullets, table-only links, deep working paths, or opaque file IDs as the sole handoff;
-5. if the user reports blank/missing links, classify the delivery as failed, restage to fresh top-level filenames, and immediately re-emit new links.
-
-Never claim the update package was delivered merely because it exists in the execution environment. `LOCAL_VALIDATION=PASS` does not imply `DELIVERY=PASS`.
+If Workspace-wide updates become frequent, evaluate a skill-only Workspace Plugin: current official Plugin documentation supports a single Plugin containing multiple Skills, which may offer a cleaner suite-level installation/governance surface.
 
 The maintainer compares installed versions with this manifest, reuses canonical releases for deployment-only drift, and rebuilds only genuinely changed Skills. Narrow `chore/workspace/skill-update-*` PRs are eligible for automatic merge to `develop` after all Skill Governance checks pass; policy/router/workflow changes are not.
 
