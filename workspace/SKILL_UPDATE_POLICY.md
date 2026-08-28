@@ -16,6 +16,8 @@ Track three independent states:
 
 Local validation and green CI are preflight evidence, not proof that ChatGPT accepts the Skill. If the product reports invalid/review/blocked, record that exact state, reduce unnecessary risk surface without broadening authority, rebuild, and test one package at a time. Promote to canonical only after product acceptance.
 
+The 2026-08-28 compatibility-safe replacements `spireagent-context-handoff@1.3.0`, `spireagent-workspace-governor@1.3.0`, and `workspace-skill-maintainer@1.3.0` were subsequently accepted by the ChatGPT Skill upload surface and observed as installed Skills. This is `PRODUCT_SCAN=PASS` / deployment evidence for those packages; it does not change Platform/STPD authority.
+
 ## One-command user update
 
 `更新 SpireAgent Skills` and `一键更新 SpireAgent Skills` explicitly authorize the governed Skill update workflow: compare deployments with the manifest, reuse canonical packages for deployment-only drift, rebuild only genuinely changed Skills, validate/package, and prepare the governed remote update.
