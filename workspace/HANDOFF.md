@@ -1,56 +1,44 @@
 # Workspace Handoff
 
-## Current governance correction — 2026-08-28
+## Governance closeout — 2026-08-28
 
 Workspace is a small durable bridge between ChatGPT web Workspace/Library and Codex/GitHub projects. Platform and STPD remain self-governed owning repositories.
 
 ### Bounded web research
 
-Public web research is allowed when it materially resolves a current external fact, upstream dependency/tool behavior, standard/advisory, or mature public solution. Project facts still come from exact owning-repo code/evidence. Prefer recent curated Workspace references before repeating a broad search, prefer official/primary sources, and stop when the decision is supported.
+Public web research is allowed when it materially resolves a current external fact, upstream dependency/tool behavior, standard/advisory, or mature public solution. Project facts still come from exact owning-repo code/evidence. Prefer recent curated Workspace references before repeating broad search, prefer official/primary sources, and stop when the decision is supported.
 
-Codex prompts may allow the same bounded research. Do not give every subagent independent web research by default; use the lead or one focused research worker for a shared external question and pass a concise result to implementation workers.
+Codex prompts may use the same bounded policy. Do not give every subagent independent browsing by default; use the lead or one focused research worker for a shared external question and pass a concise result onward.
 
 See `workspace/WEB_RESEARCH_POLICY.md` and `workspace/CODEX_MODEL_AND_CREDIT_POLICY.md`.
 
 ### External tooling conclusion
 
-Current best fit is still the small Git relay + Skills/Plugins + owning-repo Agent OS. Apps with sync may help repeated external knowledge. A narrow MCP or Codex App Server integration should be added only if a concrete missing interface justifies a custom bridge. Symphony becomes relevant only if many parallel Codex tasks need a queue/control plane.
+Current best fit remains the small Git relay + Skills/Plugins + owning-repo Agent OS. Add a narrow MCP/Codex App Server bridge only when a concrete missing interface justifies it. Symphony is relevant only when many parallel Codex tasks need a queue/control plane.
 
-See `workspace/EXTERNAL_AGENT_TOOLING.md`.
+### Skill deployment closeout
 
-### Skill rollout UX
+All eight governed Workspace Skills are now observed at the target installed versions recorded in `skills/SKILL_SUITE_MANIFEST.json`, and representative current-agent smoke passed. The canonical repository release/manifest reconciliation was completed through the narrow Skill-update lane before this governance closeout.
 
-Two direct-render experiments in the ordinary Project conversation now provide enough evidence to keep generic Project-chat rendering as an opportunistic shortcut rather than the default Skill deployment path:
+Generic Project-chat Skill rendering remains `DIRECT_PROJECT_CHAT_RENDER=PARTIAL` based on two controlled experiments:
 
-- first experiment: eight complete locally validated SpireAgent Skill packages were prepared; only the `spireagent-workspace-governor` native edited-Skill card rendered;
-- second experiment: six complete Skill update candidates were prepared after explicitly invoking the `@skill-creator` workflow; only the `workspace-knowledge-librarian` native edited-Skill card rendered.
+- 8 prepared Skills -> only Governor rendered;
+- 6 update candidates with explicit `@skill-creator` -> only Librarian rendered.
 
-Therefore record generic Project-chat suite rendering as `DIRECT_PROJECT_CHAT_RENDER=PARTIAL`.
+The final operating convention is:
 
-The reliable default create/update route remains:
+- **one Skill**: start in the current Project chat and include `Use @skill-creator to help me create a skill. Keep it conversational, and start by asking what the skill should do.` plus the complete Skill-specific requirements; if the exact target card renders, use it; otherwise reuse the same prompt in `Plugins -> Skills -> Create -> Create with chat`;
+- **multiple Skills**: batch analysis if useful, but generate one complete prompt per Skill, include the same trigger phrase in each prompt, and update/save one Skill at a time;
+- Skills should remain stable and update rarely.
 
-`Plugins -> Skills -> Create -> Create with chat`
+The active product surface does not expose installed Skill package bytes/hash. Repository package hashes identify canonical validated repository archives; they are not claimed to be observed ChatGPT-installed package hashes.
 
-The working Project conversation prepares the complete Skill change and hands the user one exact **Skill Chat Prompt**. For updates, that prompt must name the existing Skill, say not to create a duplicate, use the installed Skill as baseline, include the full requested change set, require built-in `skill-creator`, preserve/validate the complete Skill, and finish through the native update/install flow.
+### Next engineering phase
 
-This separates responsibilities cleanly:
+With Workspace governance and Workspace Skills closed, move to owning-repo Agent OS work:
 
-- Project conversation: project/workspace context, evidence, change design, validation target, prompt generation;
-- dedicated Skill-chat conversation: native Skill editor/install product UX.
+1. Platform Repo Agent OS v1 in `rsgcsg/STS2-AI-PLATFORM`;
+2. STPD Repo Agent OS v1 in `rsgcsg/STS2-The-Perfect-Defect`;
+3. then continue the Platform Full-Run runtime gates and STPD checkpoint/Human-Gold path.
 
-If an ordinary Project conversation actually renders the exact target Skill card, that card may be used opportunistically for that one Skill. Never infer that other prepared Skills were delivered from one visible card, and do not promote ordinary Project-chat rendering to the default merely because `@skill-creator` was invoked. For multi-Skill updates, batch the analysis but generate one dedicated Skill Chat Prompt per changed Skill by default. File/Library/Workspace-Git relay fallback remains available only when the dedicated Skill-chat route is unavailable or fails.
-
-### Prepared Skill candidates
-
-Current locally validated candidates include:
-
-- `spireagent-workspace-governor@1.6.0` — bounded web-research routing and durable curation;
-- `workspace-knowledge-librarian@1.4.0` — web-source lifecycle and Library/product boundaries;
-- `spireagent-codex-prompt-writer@2.4.0` — bounded Codex web research plus token-aware subagent/Skill policy;
-- `workspace-skill-maintainer@1.9.1` — dedicated Skill Chat Prompt handoff as the default reliable create/update route, with generic Project-chat rendering explicitly classified as partial/opportunistic.
-
-`workspace-skill-maintainer@1.9.1` local package SHA-256: `c53528a077b980c7f7b4bc22b39afadde82041d0c59a758dac6dc0d3b87bc277`.
-
-The second 1-of-6 direct-render experiment does not require another maintainer behavior/version bump: the currently installed 1.9.1 policy already specifies dedicated Skill Chat as the default and exact-target Project-chat cards as opportunistic only. Record the new experiment as deployment evidence rather than manufacturing a new Skill version with unchanged behavior.
-
-Do not promote candidate releases/manifest entries until actual ChatGPT product acceptance/deployment state is confirmed and the release/manifest is reconciled.
+Neither owning repository should require Workspace for routine operation.
