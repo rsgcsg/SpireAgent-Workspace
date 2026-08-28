@@ -11,34 +11,40 @@ Workspace Skills are stable workflow shells. Mutable Platform/STPD truth stays i
 Keep these states separate:
 
 1. `LOCAL_VALIDATION`: skill-creator validator/package, references/scripts, ZIP integrity and SHA-256.
-2. `PRODUCT_SCAN`: actual ChatGPT product acceptance of the edited/uploaded Skill.
+2. `PRODUCT_SCAN`: actual ChatGPT product acceptance of the created/modified/uploaded Skill.
 3. `DEPLOYMENT`: actual save/install state.
 4. `DELIVERY`: the user actually received an actionable Skill action or retrievable package.
 5. `REAL_INVOCATION`: representative behavior after the saved/installed update.
 
 A local PASS or green GitHub CI is preflight evidence only. It does not prove the ChatGPT product accepted or saved the Skill, and it does not prove the user received the artifact.
 
-When rollout behavior is uncertain, check current official OpenAI product/developer documentation. Current documentation supports creating or modifying Skills through chat and prompting installation. Current Library documentation says files uploaded to or created in ChatGPT are saved to Library where available and can be downloaded there. No public OpenAI documentation reviewed here defines `sandbox:/mnt/data/...` as a stable user-facing download contract.
+## Default product deployment
 
-## One-command update
+The normal create/update path is the dedicated native Skill-chat surface:
 
-The user can say `更新 SpireAgent Skills` or `一键更新 SpireAgent Skills`.
+`Plugins -> Skills -> Create -> Create with chat`
 
-The maintainer compares installed versions with the remote manifest, reuses canonical releases for deployment-only drift, rebuilds only genuinely changed Skills, validates/packages the full changed set, and selects the shortest actually supported handoff.
+The working Project conversation prepares the complete change and gives the user one exact **Skill Chat Prompt**. For updates, that prompt must name the existing Skill, say not to create a duplicate, use the currently installed Skill as baseline, include the complete validated change set, require built-in `skill-creator`, preserve/validate the full Skill, and finish through the native update/install UX.
 
-## Preferred product deployment
+For new Skills, use the same dedicated Skill-chat surface with a complete creation prompt describing trigger, workflow, tools/connectors, outputs, and authority/safety boundaries.
 
-Priority order:
+This is the default because it deliberately enters the product workflow designed for Skill creation/modification. The working Project conversation remains the place where project context and engineering analysis are assembled; the Skill-chat conversation is the deployment/edit surface.
 
-1. real conversation-delivered in-product edited Skill surface;
-2. explicitly available and authorized deployment API/action that confirms the update;
-3. native generated-file attachment/file card for the validated `skill.zip`;
-4. ChatGPT Library retrieval/download for files actually created/saved there;
-5. `sandbox:` Markdown only as best-effort compatibility when the active client is known to render it.
+If the current conversation already exposes a stronger direct native edited-Skill action, use it. If the dedicated Skill-chat route is unavailable or fails, use this fallback order:
 
-Prepare the complete changed Skill set first. Present multiple edited Skill cards together only when the product actually demonstrates multi-card support. Official Skills documentation does not currently guarantee that one chat turn can render several edited Skill cards.
+1. explicitly available and authorized deployment API/action;
+2. native generated-file attachment/file card for the validated `skill.zip`;
+3. ChatGPT Library retrieval/download for files actually created/saved there;
+4. explicitly authorized short-lived Workspace Git relay with normal GitHub download;
+5. `sandbox:` only as best-effort compatibility.
 
-Do not require editor pre-navigation merely to make an in-product route work. Do not promise cards or attachments based on earlier screenshots. Rendering an edited card is delivery evidence, not save/install evidence.
+Do not promise cards or attachments based on earlier screenshots. Rendering an edited card is delivery evidence, not save/install evidence.
+
+## Multi-Skill updates
+
+Prepare and validate the complete changed Skill set together. By default generate **one Skill Chat Prompt per changed Skill** so target identity stays unambiguous. A combined prompt is acceptable only after the dedicated Skill-chat surface has been verified to update several existing Skills correctly in one workflow.
+
+Do not confuse preparation batching with deployment batching: analysis may be batch-first while product save/install remains per Skill.
 
 ## File-delivery gate
 
@@ -47,11 +53,13 @@ For every user-facing ZIP fallback:
 1. verify the exact archive exists, is non-empty, passes `unzip -t` or equivalent integrity checking, and matches the expected SHA-256;
 2. prefer a native file attachment/file card when the current ChatGPT surface exposes one;
 3. where the file is actually created/saved in ChatGPT and Library is available, provide the exact filename and use Library as the durable download surface;
-4. do not treat an emitted `sandbox:` Markdown path as delivery success;
-5. if the user reports a blank/hidden/non-clickable sandbox link, record `DELIVERY=FAIL` and switch transport rather than repeating the same mechanism;
-6. if no verified product-native transport is exposed, record `DELIVERY_BLOCKED_CURRENT_SURFACE` and say so explicitly.
+4. when native file delivery fails and the user authorizes it, use `SpireAgent-Workspace` only as a short-lived `relay/*` download transport;
+5. relay payloads never become canonical Skill releases and are never merged into Workspace `develop`/`main`; remove them after product acceptance/save or TTL expiry;
+6. do not treat an emitted `sandbox:` Markdown path as delivery success;
+7. if the user reports a blank/hidden/non-clickable sandbox link, record `DELIVERY=FAIL` and switch transport;
+8. if no verified transport is exposed, record `DELIVERY_BLOCKED_CURRENT_SURFACE` explicitly.
 
-`skill.zip` remains a required release/validation artifact and rollback source. Multiple Skills remain separate Skill packages unless they are intentionally packaged through a supported higher-level product such as a Plugin.
+`skill.zip` remains a required release/validation artifact and rollback source. Multiple Skills remain separate Skill packages unless intentionally packaged through a supported higher-level product such as a Plugin.
 
 ## Workspace suite option
 
