@@ -88,12 +88,13 @@
       "version": "1.9.1",
       "scope": "workspace-generic",
       "source_archive_path": "skills/releases/workspace-skill-maintainer/skill.zip",
-      "package_sha256": "112b0cfd869b85a9146267637c5f33cbe260368dac2818b00b13bb5b99107689",
+      "package_sha256": "a88814412de9e273ea4dc578fff3abb6b4c0a9d4a5913169b748a6647852d5c4",
       "chatgpt_product_scan": "pass",
       "deployment": "pass",
       "delivery": "pass",
       "real_invocation": "pass_current_agent_smoke",
-      "product_package_hash": "unavailable_from_current_product_surface"
+      "product_package_hash": "unavailable_from_current_product_surface",
+      "repository_release_note": "Self-contained canonical repository package reconstructed for 1.9.1; product package bytes/hash are unavailable from the current product surface."
     }
   },
   "authority_note": "Each release archive is the canonical locally validated repository package for its Skill version. ChatGPT product deployment was verified separately by re-reading the installed Skill version and exercising representative behavior in the current agent run. The current product surface does not expose the installed package bytes/hash, so repository package_sha256 must not be interpreted as an observed ChatGPT package hash. Platform/STPD repositories remain the authorities for code/runtime/research truth."
