@@ -23,18 +23,24 @@ When Skill creation/edit/install/file-delivery behavior may have changed, check 
 
 ## Observed Project-chat renderer evidence — 2026-08-28
 
-A direct render experiment prepared eight complete locally validated SpireAgent Skill packages in one ordinary Project conversation. The client displayed only one native `spireagent-workspace-governor` edited-Skill card; the other seven prepared Skills did not render as cards/downloads.
+Two separate ordinary Project-chat experiments now show the same partial behavior:
 
-Record this as:
+1. Eight complete locally validated SpireAgent Skill packages were prepared together. The client displayed only the native `spireagent-workspace-governor` edited-Skill card; the other seven did not render as cards/downloads.
+2. Six complete update candidates were then prepared again after explicitly invoking the `@skill-creator` workflow in the same Project chat. The client displayed only the native `workspace-knowledge-librarian` edited-Skill card; the other five did not render.
+
+Record generic Project-chat suite rendering as:
 
 `DIRECT_PROJECT_CHAT_RENDER=PARTIAL`
 
 Interpretation:
 
-- generic Project-chat native Skill rendering exists and may be used opportunistically when the exact target card actually appears;
+- generic Project-chat native Skill rendering exists, but is not deterministic enough to be the Workspace suite-update transport;
+- a visible exact-target card may be used opportunistically for that specific Skill;
 - one rendered card does not prove the other prepared Skills were delivered;
-- generic Project-chat multi-Skill rendering is not a reliable Workspace suite-update transport;
+- explicitly invoking `@skill-creator` in an ordinary Project chat does not by itself make multi-Skill card rendering reliable;
 - do not keep retrying the same renderer merely because one card appeared previously.
+
+This is now sufficient product evidence to keep the dedicated Skill Chat route as the reliable default unless a future controlled test demonstrates complete, repeatable multi-Skill native rendering and save behavior.
 
 ## Default native Skill update path
 
@@ -63,7 +69,7 @@ This split is deliberate:
 
 Do not make the user manually reconstruct requirements. The maintainer must provide the complete prompt.
 
-If the current conversation actually renders the exact target Skill card/action, that card may be used for that Skill. Do not infer batch delivery from one card. If the dedicated Skill-chat path is unavailable or fails, fall back to a supported deployment API/action, native generated-file/Library delivery, or an explicitly authorized short-lived Workspace Git relay. `sandbox:/mnt/data/...` remains best-effort compatibility only and never proves delivery.
+If the current conversation actually renders the exact target Skill card/action, that card may be used for that Skill as an opportunistic shortcut. Do not infer batch delivery from one card, and do not make ordinary Project-chat rendering the default merely because a single card appeared. If the dedicated Skill-chat path is unavailable or fails, fall back to a supported deployment API/action, native generated-file/Library delivery, or an explicitly authorized short-lived Workspace Git relay. `sandbox:/mnt/data/...` remains best-effort compatibility only and never proves delivery.
 
 ## One-command user update
 
