@@ -1,15 +1,15 @@
 # SpireAgent Workspace
 
-Small durable bridge between the ChatGPT web Workspace/Library and the SpireAgent GitHub projects.
+A small durable bridge between the ChatGPT web Workspace/Library and Codex/GitHub projects for the SpireAgent / Slay the Spire AI project family.
 
-This repository exists mainly to expose selected Workspace conclusions and shared context to Codex in a versioned, auditable form. It also owns cross-project routing, Workspace-level Skill governance, shared standards, handoffs, knowledge pointers, current snapshots, and temporary relay policy.
+This repository owns workspace-level routing, selected Workspace-to-Codex knowledge projection, shared standards, Workspace Skill governance, handoffs, knowledge pointers, current snapshots, and temporary relay policy. It is **not** the implementation authority for STS2 AI Platform or STPD and is not a mirror of ChatGPT Library.
 
-It is intentionally **not** a third main project, a Library mirror, or an implementation/research authority.
+Canonical implementation/research authorities:
+- `rsgcsg/STS2-AI-PLATFORM`
+- `rsgcsg/STS2-The-Perfect-Defect`
 
-Primary project authorities:
-- `rsgcsg/STS2-AI-PLATFORM` — Platform Foundation code/contracts/runtime/evidence and its repo-owned agent/Skill governance.
-- `rsgcsg/STS2-The-Perfect-Defect` — STPD research/data/model/training/evaluation and its repo-owned agent/Skill governance.
+Routine single-repository development should go directly to the owning repo. Workspace is optional enrichment for cross-project decisions, web-Workspace context Codex cannot otherwise see, shared Workspace Skills/standards, and temporary connector relay.
 
-Routine single-repository Platform/STPD development should work without this repository. Use Workspace as optional enrichment for web-Workspace conclusions Codex cannot see directly, cross-project routing/shared standards, Workspace Skills, handoffs, and short-lived relay.
+For Workspace Skill updates, prefer real in-product edited Skill surfaces when they are actually available. Prepare the full changed set and present all changed Skills together when the product supports multiple edited cards/actions in one response; do not impose artificial one-by-one sequencing. Do not promise Skill cards that the current product/tool surface cannot actually render. ZIP remains the release/rollback artifact and fallback transport.
 
-See `WORKSPACE_ROUTER.md`, `workspace/KNOWLEDGE_PLANE.md`, and `workspace/SOURCE_OF_TRUTH.md`.
+See `WORKSPACE_ROUTER.md` and `workspace/SOURCE_OF_TRUTH.md` after bootstrap.
