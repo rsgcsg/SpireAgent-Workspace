@@ -6,7 +6,7 @@ Govern the SpireAgent workspace without becoming a second implementation authori
 
 ## Authority
 
-- `rsgcsg/SpireAgent-Workspace`: routing, canonical Skill release/source version manifest, handoffs, project instructions, knowledge pointers, coordination and temporary relay policy.
+- `rsgcsg/SpireAgent-Workspace`: routing, canonical Skill release/source archive manifest, handoffs, project instructions, knowledge pointers, coordination and temporary relay policy.
 - `rsgcsg/STS2-AI-PLATFORM`: Platform Foundation code/contracts/runtime/evidence.
 - `rsgcsg/STS2-The-Perfect-Defect`: STPD research projection/data/model/training/evaluation.
 

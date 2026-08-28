@@ -4,7 +4,7 @@ This repository is the governance/control-plane source of truth for the SpireAge
 
 ## Repository routing
 
-- Workspace governance, canonical Skill release/source version, handoffs, shared-project instructions, knowledge pointers and temporary relay: `rsgcsg/SpireAgent-Workspace`
+- Workspace governance, canonical Skill release/source archives, handoffs, shared-project instructions, knowledge pointers and temporary relay: `rsgcsg/SpireAgent-Workspace`
 - Platform Foundation code/contracts/runtime/evidence: `rsgcsg/STS2-AI-PLATFORM`
 - STPD research/model/training/evaluation: `rsgcsg/STS2-The-Perfect-Defect`
 
