@@ -1,20 +1,21 @@
-# Skill Suite Rollout
+# Skill Rollout
 
-## Canonical source
+Canonical Skill release authority is `skills/SKILL_SUITE_MANIFEST.json`; each manifest entry binds one complete validated archive at `skills/releases/<skill-name>/skill.zip`.
 
-`rsgcsg/SpireAgent-Workspace/skills/releases/<skill-name>/skill.zip` is the canonical complete source/release archive for each governed Skill. `skills/SKILL_SUITE_MANIFEST.json` binds each version to the SHA-256 of the complete validated release archive.
+## Normal operating model
 
-## Reconciliation release — 2026-08-28
+Project-specific SpireAgent Skills are stable workflow shells. For current project truth they refresh `SpireAgent-Workspace` and the owning Platform/STPD exact ref through the GitHub connector rather than embedding frequently changing status.
 
-This release repairs the previous state where the manifest referenced `skills/<skill-name>` paths that did not exist in the repository while installed copies could lag the manifest.
+Do not bump a Skill just because repository SHAs, PRs, objectives, runtime artifacts, or research results changed. Update Skills only for trigger/routing/authority/tool/output-workflow changes or demonstrated recurring failures.
 
-The conversation organizer is intentionally upgraded more substantially: historical P8-P15 / hard-shell / soft-shell / Context OS terminology is lineage only unless current canonical repositories reactivate it. Current discussion alignment follows Workspace governance -> exact owning Platform/STPD repository -> evidence-class verification.
+## One-command update
 
-## Rollout order
+The user can say:
 
-1. `spireagent-conversation-organizer` — high priority because the installed copy encoded stale project-phase authority.
-2. `spireagent-workspace-governor` and `spireagent-explainer`.
-3. `spireagent-codex-prompt-writer` and `spireagent-context-handoff`.
-4. `github-remote-operator`, `workspace-knowledge-librarian`, `workspace-skill-maintainer`.
+`更新 SpireAgent Skills`
 
-Each package is uploaded/published separately as `skill.zip`. Do not treat repository merge as proof that a ChatGPT-installed deployment has updated; deployment version must be checked independently.
+The maintainer compares installed versions with the remote manifest, reuses canonical packages for deployment-only drift, rebuilds only genuinely changed Skills, and returns only changed packages. Eligible narrow Skill-update PRs named `chore/workspace/skill-update-*` auto-merge to `develop` after all Skill Governance jobs pass.
+
+Changes to routers, authority policy, validators, or workflow files are not auto-merge eligible.
+
+Repository merge does not itself install or publish Skills in ChatGPT/Codex. When no supported deployment write API is available, upload/publish only the changed `skill.zip` files through the product Skills surface.
