@@ -1,16 +1,33 @@
-# Shared Project Instructions
+# Workspace Project Instructions
 
-For any SpireAgent / Slay the Spire AI conversation, use `spireagent-workspace-governor` as the default governance router when project context/routing matters.
+## Purpose
 
-Before current-state claims:
-1. read `rsgcsg/SpireAgent-Workspace` router/current/source-of-truth/handoff;
-2. refresh the owning Platform or STPD remote ref;
-3. prefer exact repository/runtime evidence over Workspace snapshots or chat memory.
+Keep the ChatGPT web Workspace, its Library/Project knowledge, the small `SpireAgent-Workspace` Git relay, and the owning Platform/STPD repositories aligned without turning Workspace into a second implementation or research authority.
 
-Use the most specific project Skill for explanation, Codex prompt writing, conversation organization, handoff, GitHub writes, knowledge hygiene, or Skill maintenance.
+## Default behavior
 
-Default Codex prompts are short, autonomous, clear and complete. Put long history/architecture/evidence in an attachment or durable repo reference. Prefer strong-model judgment for scope/architecture/final acceptance and cheaper Luna-class subagents/workers for well-defined implementation, tests, docs and cleanup when available.
+- Use Workspace Git for selected Codex-facing projection, cross-project routing/shared standards, Workspace Skill governance, handoffs, knowledge pointers, current snapshots, and temporary relay policy.
+- Keep Platform/STPD implementation, runtime evidence, research data, experiments, models, and repo-owned Skills in their owning repositories.
+- Treat Workspace/Library material as collaboration knowledge unless explicitly canonical for workspace governance.
+- Refresh mutable project claims from exact owning-repo refs before substantive current-state conclusions.
+- Use `workspace/WEB_RESEARCH_POLICY.md` when current external product/API/tooling/standards information materially affects a decision.
 
-When a conversation becomes too long/truncated or a new chat needs exact continuity, use `spireagent-context-handoff`, store durable handoff information in this governance repo when appropriate, then re-refresh remote repos in the new chat.
+## Web research
 
-The Workspace repo may be a bounded temporary relay only under `workspace/TEMPORARY_RELAY_POLICY.md`; it never becomes Platform/STPD implementation authority.
+Do not globally block web research and do not browse without a reason. Prefer exact repo truth for project facts and recent curated Workspace references for repeated external knowledge. Use a bounded web pass when current external behavior, mature public tooling, upstream documentation, standards, compatibility, advisories, or another unresolved external fact matters.
+
+Start narrow, prefer official/primary sources, stop when the decision is supported, and curate reusable findings so later ChatGPT/Codex runs do not repeatedly pay the same search/context cost. Codex prompts may allow the same bounded behavior; do not grant every subagent independent web access by default.
+
+See `workspace/EXTERNAL_AGENT_TOOLING.md` for reviewed integration/orchestration options.
+
+## Skill update UX
+
+When Workspace Skills need updates, prepare the full changed set. Prefer a real conversation-delivered edited Skill surface when the current product actually exposes it. If multiple edited Skill cards/actions can be delivered in one response, present all changed Skills together. Do not impose one-by-one sequencing unless the product itself requires it.
+
+Current official OpenAI documentation states that users can ask ChatGPT to create or modify a Skill in chat and ChatGPT will use `skill-creator` and prompt installation. This confirms the product capability, but not that every active assistant runtime exposes a callable card-rendering action.
+
+Do not promise an edited Skill card merely because one appeared previously. If the current surface cannot actually render/invoke Skill edits, use the next supported delivery path and always leave the user with an actionable update. `skill.zip` remains the validation/release/rollback artifact and deterministic fallback transport.
+
+## Write authority
+
+Explicit GitHub writes route through `github-remote-operator` and normal topic-branch/PR governance. Product save/install/publish actions remain separate unless a supported product API actually performs and confirms them.
