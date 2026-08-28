@@ -21,15 +21,20 @@ A local PASS or green GitHub CI is preflight evidence only. It does not prove th
 
 ## Observed direct-render result
 
-On 2026-08-28, one ordinary Project conversation prepared eight complete locally validated SpireAgent Skill packages. Only the `spireagent-workspace-governor` edited-Skill card was visible; the other seven prepared Skills did not render as native cards/downloads.
+Two ordinary Project-chat experiments on 2026-08-28 both produced partial native rendering:
 
-Treat that result as `DIRECT_PROJECT_CHAT_RENDER=PARTIAL`.
+- first test: eight complete locally validated SpireAgent Skill packages were prepared; only the `spireagent-workspace-governor` edited-Skill card was visible;
+- second test: six complete update candidates were prepared after explicitly invoking the `@skill-creator` workflow; only the `workspace-knowledge-librarian` edited-Skill card was visible.
+
+Treat generic Project-chat suite rendering as `DIRECT_PROJECT_CHAT_RENDER=PARTIAL`.
 
 Consequences:
 
 - a visible exact-target card may be used opportunistically for that Skill;
 - never infer delivery of other Skills from one visible card;
-- generic Project-chat multi-card rendering is not the default Workspace suite-update transport.
+- explicit `@skill-creator` invocation in a generic Project chat does not make multi-Skill card rendering deterministic;
+- generic Project-chat multi-card rendering is not the default Workspace suite-update transport;
+- keep the dedicated Skill-chat route as the reliable default until a future controlled test proves complete, repeatable multi-Skill rendering and save behavior.
 
 ## Default product deployment
 
@@ -43,7 +48,7 @@ For new Skills, use the same dedicated Skill-chat surface with a complete creati
 
 The working Project conversation remains the place where project context and engineering analysis are assembled; the Skill-chat conversation is the native editing/install surface.
 
-If the current Project conversation already renders the exact target Skill card, use that card for the target Skill. Do not wait for or promise the remaining cards. If the dedicated Skill-chat route is unavailable or fails, use this fallback order:
+If the current Project conversation already renders the exact target Skill card, use that card only as an opportunistic shortcut for the target Skill. Do not wait for or promise the remaining cards, and do not promote ordinary Project-chat rendering to the default based on a single visible card. If the dedicated Skill-chat route is unavailable or fails, use this fallback order:
 
 1. explicitly available and authorized deployment API/action;
 2. native generated-file attachment/file card for the validated `skill.zip`;
