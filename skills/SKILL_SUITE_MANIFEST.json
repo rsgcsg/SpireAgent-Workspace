@@ -88,7 +88,7 @@
       "version": "1.9.1",
       "scope": "workspace-generic",
       "source_archive_path": "skills/releases/workspace-skill-maintainer/skill.zip",
-      "package_sha256": "21544ae241bbf4963fbcc02391c02c8e8dac65e03670139c2babd164ff730a23",
+      "package_sha256": "112b0cfd869b85a9146267637c5f33cbe260368dac2818b00b13bb5b99107689",
       "chatgpt_product_scan": "pass",
       "deployment": "pass",
       "delivery": "pass",
