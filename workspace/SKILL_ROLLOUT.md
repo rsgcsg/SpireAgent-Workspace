@@ -1,90 +1,73 @@
 # Skill Rollout
 
-Canonical Skill release authority is `skills/SKILL_SUITE_MANIFEST.json`; each manifest entry binds one complete archive at `skills/releases/<skill-name>/skill.zip`.
+Canonical Workspace Skill release authority is `skills/SKILL_SUITE_MANIFEST.json`; each manifest entry binds one validated repository archive at `skills/releases/<skill-name>/skill.zip`.
 
 ## Normal operating model
 
-Workspace Skills are stable workflow shells. Mutable Platform/STPD truth stays in the owning repositories. Do not bump a Skill merely because repository SHAs, PRs, objectives, runtime artifacts, or research results changed. Update Skills only for trigger/routing/authority/tool/output-workflow changes or demonstrated recurring failures.
+Workspace Skills are stable workflow shells and should change rarely. Mutable Platform/STPD truth stays in the owning repositories. Do not bump a Skill merely because SHAs, PRs, objectives, runtime artifacts, or research results changed.
 
-## Validation is layered
+## Validation layers
 
 Keep these states separate:
 
-1. `DIRECT_PROJECT_CHAT_RENDER`: whether an ordinary Project conversation actually rendered the requested native Skill card/action.
-2. `LOCAL_VALIDATION`: skill-creator validator/package, references/scripts, ZIP integrity and SHA-256.
-3. `PRODUCT_SCAN`: actual ChatGPT product acceptance of the created/modified/uploaded Skill.
-4. `DEPLOYMENT`: actual save/install state.
-5. `DELIVERY`: the user actually received an actionable Skill action or retrievable package.
-6. `REAL_INVOCATION`: representative behavior after the saved/installed update.
+1. `DIRECT_PROJECT_CHAT_RENDER`;
+2. `LOCAL_VALIDATION`;
+3. `PRODUCT_SCAN`;
+4. `DEPLOYMENT`;
+5. `DELIVERY`;
+6. `REAL_INVOCATION`.
 
-A local PASS or green GitHub CI is preflight evidence only. It does not prove the ChatGPT product accepted or saved the Skill, and it does not prove the user received the artifact.
+A local PASS, package hash, or green GitHub CI cannot substitute for product acceptance/save or real invocation.
 
-## Observed direct-render result
+## Direct-render evidence
 
-Two ordinary Project-chat experiments on 2026-08-28 both produced partial native rendering:
+Two 2026-08-28 Project-chat experiments were partial:
 
-- first test: eight complete locally validated SpireAgent Skill packages were prepared; only the `spireagent-workspace-governor` edited-Skill card was visible;
-- second test: six complete update candidates were prepared after explicitly invoking the `@skill-creator` workflow; only the `workspace-knowledge-librarian` edited-Skill card was visible.
+- 8 prepared Skills -> only the Governor card rendered;
+- 6 update candidates with explicit `@skill-creator` invocation -> only the Librarian card rendered.
 
-Treat generic Project-chat suite rendering as `DIRECT_PROJECT_CHAT_RENDER=PARTIAL`.
+Therefore generic Project-chat suite rendering remains `PARTIAL`. An exact-target card that actually appears can be used for that Skill, but generic multi-card rendering is not a suite transport.
 
-Consequences:
+## Final product update flow
 
-- a visible exact-target card may be used opportunistically for that Skill;
-- never infer delivery of other Skills from one visible card;
-- explicit `@skill-creator` invocation in a generic Project chat does not make multi-Skill card rendering deterministic;
-- generic Project-chat multi-card rendering is not the default Workspace suite-update transport;
-- keep the dedicated Skill-chat route as the reliable default until a future controlled test proves complete, repeatable multi-Skill rendering and save behavior.
+### One Skill
 
-## Default product deployment
+Start in the current Project conversation and include:
 
-The reliable default create/update path is the dedicated native Skill-chat surface:
+`Use @skill-creator to help me create a skill. Keep it conversational, and start by asking what the skill should do.`
+
+Follow it with the complete Skill-specific request. For an existing Skill, say update-not-create, do not create a duplicate, use the currently installed Skill as baseline, invoke built-in `skill-creator`, preserve/validate the full Skill, and finish through native save/update UX.
+
+If the exact target card renders, use it. If it does not, reuse the same complete prompt in:
 
 `Plugins -> Skills -> Create -> Create with chat`
 
-The working Project conversation prepares the complete change and gives the user one exact **Skill Chat Prompt**. For updates, that prompt must name the existing Skill, say not to create a duplicate, use the currently installed Skill as baseline, include the complete validated change set, require built-in `skill-creator`, preserve/validate the full Skill, and finish through the native update/install UX.
+### Multiple Skills
 
-For new Skills, use the same dedicated Skill-chat surface with a complete creation prompt describing trigger, workflow, tools/connectors, outputs, and authority/safety boundaries.
+Analyze the changed set together when efficient, but generate one complete prompt per Skill. Include the same trigger phrase in **every** prompt and update/save one Skill at a time. Do not rely on a generic Project-chat batch renderer.
 
-The working Project conversation remains the place where project context and engineering analysis are assembled; the Skill-chat conversation is the native editing/install surface.
+The working Project conversation owns project context, evidence, design, and prompt preparation. Dedicated Skill Chat is the reliable fallback/native editing surface when an exact-target Project card is absent.
 
-If the current Project conversation already renders the exact target Skill card, use that card only as an opportunistic shortcut for the target Skill. Do not wait for or promise the remaining cards, and do not promote ordinary Project-chat rendering to the default based on a single visible card. If the dedicated Skill-chat route is unavailable or fails, use this fallback order:
+## Current reconciled state — 2026-08-28
 
-1. explicitly available and authorized deployment API/action;
-2. native generated-file attachment/file card for the validated `skill.zip`;
-3. ChatGPT Library retrieval/download for files actually created/saved there;
-4. explicitly authorized short-lived Workspace Git relay with normal GitHub download;
-5. `sandbox:` only as best-effort compatibility.
+All eight governed Workspace Skills are observed at the target installed versions recorded in the manifest. Product scan/deployment/delivery and representative current-agent smoke are recorded separately from repository package validation. Generic Project rendering remains `PARTIAL`.
 
-Rendering an edited card is delivery evidence, not save/install evidence.
+The product surface does not expose installed Skill package bytes/hash. Repository `package_sha256` is therefore the identity of the canonical validated **repository archive**, not a claimed ChatGPT package-byte identity.
 
-## Multi-Skill updates
+## File fallback
 
-Prepare and validate the complete changed Skill set together. By default generate **one Skill Chat Prompt per changed Skill** so target identity stays unambiguous. A combined prompt is acceptable only after the dedicated Skill-chat surface has been explicitly verified to update several existing Skills correctly in one workflow.
+When native Skill editing is unavailable:
 
-Do not confuse preparation batching with deployment batching: analysis may be batch-first while product save/install remains per Skill.
+1. use an explicitly available deployment action/API if supported;
+2. prefer a native generated-file/file card;
+3. use Library only for files actually saved there;
+4. use an explicitly authorized short-lived Workspace Git relay when necessary;
+5. use `sandbox:` only as best-effort compatibility.
 
-## File-delivery gate
-
-For every user-facing ZIP fallback:
-
-1. verify the exact archive exists, is non-empty, passes `unzip -t` or equivalent integrity checking, and matches the expected SHA-256;
-2. prefer a native file attachment/file card when the current ChatGPT surface exposes one;
-3. where the file is actually created/saved in ChatGPT and Library is available, provide the exact filename and use Library as the durable download surface;
-4. when native file delivery fails and the user authorizes it, use `SpireAgent-Workspace` only as a short-lived `relay/*` download transport;
-5. relay payloads never become canonical Skill releases and are never merged into Workspace `develop`/`main`; remove them after product acceptance/save or TTL expiry;
-6. do not treat an emitted `sandbox:` Markdown path as delivery success;
-7. if the user reports a blank/hidden/non-clickable sandbox link, record `DELIVERY=FAIL` and switch transport;
-8. if no verified transport is exposed, record `DELIVERY_BLOCKED_CURRENT_SURFACE` explicitly.
-
-`skill.zip` remains a required release/validation artifact and rollback source. Multiple Skills remain separate Skill packages unless intentionally packaged through a supported higher-level product such as a Plugin.
-
-## Workspace suite option
-
-Current official Plugin documentation says one plugin can contain multiple Skills. If suite-wide updates become frequent, evaluate a **skill-only SpireAgent Workspace Plugin** so Workspace Skills can be governed and installed as a suite rather than relying on repeated independent personal-Skill update flows. This is an evaluation item, not yet an adopted dependency.
+A hidden/non-clickable link is not delivery. Relay payloads have zero canonical authority and never merge to Workspace integration branches.
 
 ## GitHub governance
 
-Eligible narrow Skill-update PRs named `chore/workspace/skill-update-*` may use the governed Skill auto-merge lane after all Skill Governance checks pass. Changes to routers, authority policy, validators, Actions workflows, CURRENT semantics, or this rollout policy require normal reviewed governance.
+Narrow `chore/workspace/skill-update-*` PRs may use the governed Skill auto-merge lane only after all Skill Governance checks pass. Broader router/policy/validator/workflow changes remain normal governance work.
 
-Repository merge does not itself install or publish a Skill in ChatGPT/Codex. Product deployment state must be reconciled separately with `skills/SKILL_SUITE_MANIFEST.json`.
+Repository merge does not install a Skill in ChatGPT; product deployment evidence stays separate.
