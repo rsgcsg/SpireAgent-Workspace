@@ -11,34 +11,51 @@ Release a Workspace Skill only when its trigger, routing, authority/storage mode
 Track five independent states:
 
 - `LOCAL_VALIDATION`: deterministic structure/package/integrity/hash tests;
-- `PRODUCT_SCAN`: actual ChatGPT product acceptance of the edited/uploaded Skill;
+- `PRODUCT_SCAN`: actual ChatGPT product acceptance of the created/modified/uploaded Skill;
 - `DEPLOYMENT`: actual save/install state;
-- `DELIVERY`: the user actually received an actionable Skill action or a retrievable package;
+- `DELIVERY`: the user actually received an actionable Skill action or retrievable package;
 - `REAL_INVOCATION`: representative behavior after the saved/installed update.
 
 Local validation and green CI are preflight evidence, not proof that ChatGPT accepted/saved the Skill or that the user actually received the artifact.
 
-When Skill creation/edit/install/file-delivery behavior may have changed, check current official OpenAI Help/Developer documentation instead of relying only on remembered UI behavior. Official documentation currently confirms that ChatGPT can create or modify Skills through chat and prompt installation, and that files uploaded to or created in ChatGPT are saved to Library where Library is available. It does **not** define `sandbox:/mnt/data/...` Markdown as a stable user-facing download contract.
+When Skill creation/edit/install/file-delivery behavior may have changed, check current official OpenAI Help/Developer documentation instead of relying only on remembered UI behavior.
+
+## Default native Skill update path
+
+For normal Workspace Skill creation or update, the working Project conversation should **prepare the exact change** and then hand the user one complete **Skill Chat Prompt** for the dedicated product surface:
+
+`Plugins -> Skills -> Create -> Create with chat`
+
+For an existing Skill, the prompt must:
+
+1. name the target Skill exactly;
+2. state that this is an update, not a new same-name Skill;
+3. say **do not create a duplicate**;
+4. say **use the currently installed Skill as the baseline**;
+5. include the complete requested behavior/constraint changes;
+6. instruct ChatGPT to invoke built-in `skill-creator`;
+7. preserve the full Skill structure and validate the complete Skill;
+8. finish through the native Skill update/install flow;
+9. report the product save/install result back to the working conversation for reconciliation.
+
+For a new Skill, the same dedicated Skill-chat surface is the default creation path; omit the existing-Skill/no-duplicate clauses and provide the complete intended trigger, workflow, tools, outputs, and safety constraints.
+
+This split is deliberate:
+
+- the working Project conversation owns project context, cross-repo evidence, design, and exact change preparation;
+- the dedicated Skill-chat conversation owns native Skill creation/edit/install UX.
+
+Do not make the user manually reconstruct requirements. The maintainer must provide the complete prompt.
+
+If the current conversation already exposes a stronger direct native Skill edit/save action for the target Skill, it may be used instead. If the dedicated Skill-chat path is unavailable or fails, fall back to a supported deployment API/action, native generated-file/Library delivery, or an explicitly authorized short-lived Workspace Git relay. `sandbox:/mnt/data/...` remains best-effort compatibility only and never proves delivery.
 
 ## One-command user update
 
-`更新 SpireAgent Skills` and `一键更新 SpireAgent Skills` explicitly authorize the governed Workspace Skill update workflow: compare deployments with the manifest, reuse canonical release artifacts for deployment-only drift, rebuild only genuinely changed Skills, validate/package the full changed set, and prepare governed remote reconciliation.
+`更新 SpireAgent Skills` and `一键更新 SpireAgent Skills` explicitly authorize the governed Workspace Skill update workflow: compare deployments with the manifest, reuse canonical release artifacts for deployment-only drift, rebuild only genuinely changed Skills, validate/package the changed set, prepare one native Skill Chat Prompt per changed Skill by default, and prepare governed remote reconciliation.
 
-### Default delivery contract
+A combined multi-Skill prompt is acceptable only if the dedicated Skill-chat surface has been verified to update multiple existing Skills without ambiguity. Do not impose artificial one-by-one sequencing during analysis/preparation, but preserve product boundaries at deployment.
 
-Use the strongest product-visible surface actually available:
-
-1. real conversation-delivered edited Skill card/action;
-2. an explicitly available and authorized Skill deployment API/action;
-3. a native generated-file attachment/file card for the complete validated `skill.zip`;
-4. Library retrieval/download for a file actually created/saved in ChatGPT;
-5. `sandbox:` Markdown only as best-effort compatibility when the current client is known to render it.
-
-For multiple changed Skills, prepare and validate the complete changed set first. Present multiple edited cards together only when the product actually demonstrates that capability. Current official Skills documentation confirms chat-based Skill creation/modification but does not promise multi-card batch rendering in a single turn.
-
-Do not require the user to pre-open editors merely to expose a route. Never promise a card, file attachment, or download that the current surface has not actually produced. Rendering an edited card is delivery evidence, not save/install evidence.
-
-### File delivery is a separate gate
+## File delivery is a separate gate
 
 The 2026-08-28 repeated blank-link failure established that package existence and emitted Markdown are not delivery.
 
@@ -47,15 +64,17 @@ For each ZIP fallback:
 1. verify the final archive exists, is non-empty, passes ZIP integrity, and matches the expected SHA-256;
 2. prefer a native generated-file attachment/file card when the current conversation exposes one;
 3. when ChatGPT created/saved the file and Library is available, provide the exact filename and use Library as the durable retrieval/download surface;
-4. treat `sandbox:/mnt/data/...` as an internal compatibility reference, not as the product contract;
-5. if a sandbox link is blank, hidden, or non-clickable, set `DELIVERY=FAIL` and **switch transport** rather than repeatedly restaging/re-emitting the same mechanism;
-6. if no product-native attachment, Library retrieval, deployment action, or other verified transport is available, report `DELIVERY_BLOCKED_CURRENT_SURFACE` instead of claiming success.
+4. if product-native delivery is unavailable, an explicitly authorized short-lived `SpireAgent-Workspace` `relay/*` branch may expose a normal GitHub download URL;
+5. relay artifacts are delivery-only, have zero canonical Skill authority, are never merged into Workspace `develop`/`main`, and must be deleted after product acceptance/save or TTL expiry;
+6. treat `sandbox:/mnt/data/...` as an internal compatibility reference, not as the product contract;
+7. if a sandbox link is blank, hidden, or non-clickable, set `DELIVERY=FAIL` and switch transport rather than repeating the same mechanism;
+8. if no verified transport is available, report `DELIVERY_BLOCKED_CURRENT_SURFACE` instead of claiming success.
 
 Never claim `DELIVERY=PASS` from file existence, hash output, assistant intent, or emitted sandbox Markdown alone.
 
 ## Suite-level update option
 
-If recurring Workspace-wide Skill updates make per-Skill product installation expensive, evaluate a **skill-only Workspace Plugin**. Current official Plugin documentation supports a single plugin containing multiple Skills. This is the preferred direction to investigate for one-install/one-governance suite UX; do not assume the existing personal-Skill chat editor can batch-render all Skill updates until the product proves that capability.
+If recurring Workspace-wide Skill updates make per-Skill product installation expensive, evaluate a **skill-only Workspace Plugin**. Current official Plugin documentation supports a single plugin containing multiple Skills. This remains an evaluation item until its Business-workspace creation/update/share behavior is verified in product.
 
 ## Reconciliation closeout
 
