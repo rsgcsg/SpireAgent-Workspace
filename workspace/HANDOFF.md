@@ -1,20 +1,25 @@
 # Workspace Handoff
 
-## Current routing
-- Workspace governance and canonical Skill source: `rsgcsg/SpireAgent-Workspace`
-- Platform: `rsgcsg/STS2-AI-PLATFORM`
-- STPD: `rsgcsg/STS2-The-Perfect-Defect`
+## Current governance correction — 2026-08-28
 
-## Current engineering focus
-Platform Full-Run Human Semantic Timeline remains the active Platform objective. The repaired cross-surface canary has bounded Human semantic-accounting evidence; subsequent potion support is advancing through a separate Combat mechanism gate. Refresh the active Platform PR/STATUS/ROADMAP before making a current claim.
+Workspace is a small durable bridge between ChatGPT web Workspace/Library and Codex/GitHub projects. Platform and STPD remain self-governed owning repositories.
 
-STPD remains pre-alpha. The S1 behavior smoke and thin Platform Policy Adapter exist, but exact Runtime Shadow/One-Step/bounded Auto parity still depends on provisioning the named checkpoint outside Git, and Human Gold remains a scientific blocker.
+### Skill rollout UX
 
-## Workspace governance focus
-The 2026-08-28 Skill/Governance reconciliation makes `skills/releases/<skill-name>/skill.zip` the canonical complete Skill source/release authority, validates archive/version hashes deterministically, and repairs deployment drift. Installed Skill copies remain deployments and must be rolled out separately from a Git merge.
+A prior response incorrectly imposed one-by-one Skill updates and promised that an edited Skill card would appear below the reply. No card rendered. Treat this as real product-surface evidence:
 
-## Next-chat rule
-Read `WORKSPACE_ROUTER.md` and `workspace/CURRENT.md`, then refresh the active Platform/STPD branch/PR through GitHub before acting.
+- prepare the full changed Skill set first;
+- if the current ChatGPT product can actually render multiple edited Skill cards/actions in one response, present all changed Skills together;
+- do not impose one-by-one sequencing unless the product itself requires it;
+- do not require users to pre-open editors merely to expose the route;
+- never promise a card that the current product/tool surface cannot actually render;
+- keep `skill.zip` as validation/release/rollback artifact and fallback transport.
 
-## Skill rule
-Use `spireagent-workspace-governor` first when routing/context matters, then the most specific Skill. For Skill changes, use `workspace-skill-maintainer` together with built-in `skill-creator`.
+### Prepared Skill candidates
+
+- `workspace-skill-maintainer@1.6.1`: batch-first rollout and truthful edit-card capability detection; LOCAL_VALIDATION PASS.
+- `workspace-knowledge-librarian@1.3.0`: ChatGPT Library role and UI-vs-agent-CRUD boundary; LOCAL_VALIDATION PASS.
+- `spireagent-codex-prompt-writer@2.3.0`: owning-repo-first Codex grounding with optional Workspace enrichment; LOCAL_VALIDATION PASS.
+- `spireagent-workspace-governor@1.5.0` is already observed installed and contains the current small Workspace relay model.
+
+Do not promote candidate releases/manifest entries until actual product save/acceptance state is confirmed. The Workspace PR remains the governance lane for the policy correction.
