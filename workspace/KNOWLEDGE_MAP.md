@@ -1,24 +1,32 @@
 # Workspace Knowledge Map
 
-This map links the ChatGPT Workspace knowledge plane, durable `SpireAgent-Workspace` governance, and the owning Platform/STPD repositories. It is an index, not a duplicate source of implementation truth.
+This map links ChatGPT Workspace/Library, the small durable `SpireAgent-Workspace` Git relay, and the owning Platform/STPD repositories. It is an index and Codex-facing projection, not a duplicate source of implementation/research truth.
 
 | Item | Class | Lifetime | Authority / owner | Current source |
 |---|---|---|---|---|
 | Workspace Router | CANONICAL | LONG_TERM | SpireAgent-Workspace | `WORKSPACE_ROUTER.md` |
 | Source of Truth | CANONICAL | LONG_TERM | SpireAgent-Workspace | `workspace/SOURCE_OF_TRUTH.md` |
 | Knowledge Plane | CANONICAL | LONG_TERM | SpireAgent-Workspace | `workspace/KNOWLEDGE_PLANE.md` |
-| Current Snapshot | CURRENT | WORKING | SpireAgent-Workspace | `workspace/CURRENT.md`; owning refs must be refreshed |
-| Handoff | HANDOFF | WORKING | SpireAgent-Workspace / user | `workspace/HANDOFF.md` |
-| Skill Manifest/Releases | CANONICAL | LONG_TERM | SpireAgent-Workspace | `skills/SKILL_SUITE_MANIFEST.json`, `skills/releases/` |
-| Platform status/architecture/evidence | CANONICAL/EVIDENCE | LONG_TERM | STS2-AI-PLATFORM | exact active Platform ref |
-| STPD status/model/training/evaluation | CANONICAL/EVIDENCE | LONG_TERM | STS2-The-Perfect-Defect | exact active STPD ref |
+| Current cross-project snapshot | CURRENT | WORKING | SpireAgent-Workspace | `workspace/CURRENT.md`; owning refs must be refreshed |
+| Cross-project / Workspace handoff | HANDOFF | WORKING | SpireAgent-Workspace / user | `workspace/HANDOFF.md` |
+| Workspace Skill manifest/releases | CANONICAL | LONG_TERM | SpireAgent-Workspace | `skills/SKILL_SUITE_MANIFEST.json`, `skills/releases/` |
+| ChatGPT Library / Project artifacts | REFERENCE/HANDOFF/CURRENT/RAW | WORKING/LONG_TERM | Workspace users/product | use when actually accessible; keep durable pointer only when useful to Codex/cross-project governance |
+| Platform status/architecture/evidence/agent Skills | CANONICAL/EVIDENCE | LONG_TERM | STS2-AI-PLATFORM | exact active Platform ref |
+| STPD status/model/training/evaluation/agent Skills | CANONICAL/EVIDENCE | LONG_TERM | STS2-The-Perfect-Defect | exact active STPD ref |
 | Session scratch | RAW/TEMP | TEMP | current execution | `/mnt/data` or equivalent; never assume persistence |
-| Workspace Library/Project artifacts | REFERENCE/HANDOFF/CURRENT | WORKING/LONG_TERM | Workspace users | use only when directly accessible; keep GitHub/source pointer here |
+| Temporary code/text relay | RAW/HANDOFF | TEMP | SpireAgent-Workspace relay branch | `relay/*`; zero implementation authority, transfer then delete |
+
+## Selection rule
+
+Do not mirror the whole ChatGPT Library or chat history into Git. Promote only reviewed conclusions, pointers, shared standards, handoffs, Workspace-level Skill governance, or Codex-facing reference packets that materially improve cross-project continuity.
+
+Routine single-repository Platform/STPD work should read the owning repository directly and should not depend on this map.
 
 ## Current access note — 2026-08-28
 
 - Session scratch read/write: available in the active execution environment.
 - GitHub governance/repositories: available through the connected GitHub connector.
-- Generic ChatGPT Workspace Library/Project persistent file CRUD/benchmark API: not exposed in the current tool surface, so automatic Library writes and backend throughput remain `UNMEASURED` here.
+- ChatGPT Library UI: visible in the product.
+- Generic ChatGPT Library persistent-file list/move/rename/delete CRUD in this active agent tool surface: not exposed/verified. Do not claim direct operations until an actual tool surface provides them.
 
-When that persistent file surface becomes directly accessible, `workspace-knowledge-librarian` should inventory it and update this map rather than creating a second competing index.
+When direct Library file operations become available, `workspace-knowledge-librarian` should inventory that plane and update this map rather than creating a second competing index.
