@@ -13,12 +13,12 @@ Keep these states separate:
 1. `LOCAL_VALIDATION`: skill-creator validator/package, references/scripts, ZIP integrity and SHA-256.
 2. `PRODUCT_SCAN`: actual ChatGPT product acceptance of the edited/uploaded Skill.
 3. `DEPLOYMENT`: actual save/install state.
-4. `DELIVERY`: the user actually received an actionable card/action or visible working download link.
+4. `DELIVERY`: the user actually received an actionable Skill action or retrievable package.
 5. `REAL_INVOCATION`: representative behavior after the saved/installed update.
 
 A local PASS or green GitHub CI is preflight evidence only. It does not prove the ChatGPT product accepted or saved the Skill, and it does not prove the user received the artifact.
 
-When rollout behavior is uncertain, check current official OpenAI product/developer documentation. Current documentation supports creating or modifying Skills through chat and prompting installation, but the current assistant runtime must still actually expose/render the relevant action before it is claimed available.
+When rollout behavior is uncertain, check current official OpenAI product/developer documentation. Current documentation supports creating or modifying Skills through chat and prompting installation. Current Library documentation says files uploaded to or created in ChatGPT are saved to Library where available and can be downloaded there. No public OpenAI documentation reviewed here defines `sandbox:/mnt/data/...` as a stable user-facing download contract.
 
 ## One-command update
 
@@ -28,42 +28,34 @@ The maintainer compares installed versions with the remote manifest, reuses cano
 
 ## Preferred product deployment
 
-If the current ChatGPT conversation can actually render existing Skills as edited Skill cards/actions, prefer that route over ZIP.
-
-Required behavior:
-
-1. prepare and validate the complete changed Skill set;
-2. if the product supports multiple edited cards/actions in one response, present all changed Skills together;
-3. do not require the user to navigate to or pre-open Skill editors merely to expose the route;
-4. leave only unavoidable product save/confirm actions to the user;
-5. record each Skill's saved/installed/product result independently;
-6. only force sequential interaction when the product surface itself requires it.
-
-Do not promise that an edited Skill card will appear merely because one appeared previously. Assistant prose cannot force the product surface.
-
-Rendering an edited card is delivery evidence, not save/install evidence.
-
 Priority order:
 
 1. real conversation-delivered in-product edited Skill surface;
-2. explicitly available and authorized deployment API that confirms the update;
-3. verified per-Skill `skill.zip` fallback.
+2. explicitly available and authorized deployment API/action that confirms the update;
+3. native generated-file attachment/file card for the validated `skill.zip`;
+4. ChatGPT Library retrieval/download for files actually created/saved there;
+5. `sandbox:` Markdown only as best-effort compatibility when the active client is known to render it.
 
-If priority 1 or 2 is not actually available in the current turn, priority 3 is mandatory. Never finish an explicit Skill-update request with neither a product action nor working download links.
+Prepare the complete changed Skill set first. Present multiple edited Skill cards together only when the product actually demonstrates multi-card support. Official Skills documentation does not currently guarantee that one chat turn can render several edited Skill cards.
 
-## Deterministic ZIP delivery gate
+Do not require editor pre-navigation merely to make an in-product route work. Do not promise cards or attachments based on earlier screenshots. Rendering an edited card is delivery evidence, not save/install evidence.
+
+## File-delivery gate
 
 For every user-facing ZIP fallback:
 
-1. copy the final package to a simple unique path directly under `/mnt/data`, e.g. `/mnt/data/<skill>-<version>-skill.zip`;
-2. after the copy, verify the exact final file exists, is non-empty, passes `unzip -t` or equivalent integrity checking, and matches the expected SHA-256;
-3. return one literal standalone Markdown sandbox link per Skill: `[Download <skill>](sandbox:/mnt/data/<filename>.zip)`;
-4. do not make a bullet/table/opaque file id the only user-facing reference;
-5. if the user reports a blank or missing link, record `DELIVERY=FAIL`, create fresh simple top-level filenames, re-verify, and immediately re-emit the links.
+1. verify the exact archive exists, is non-empty, passes `unzip -t` or equivalent integrity checking, and matches the expected SHA-256;
+2. prefer a native file attachment/file card when the current ChatGPT surface exposes one;
+3. where the file is actually created/saved in ChatGPT and Library is available, provide the exact filename and use Library as the durable download surface;
+4. do not treat an emitted `sandbox:` Markdown path as delivery success;
+5. if the user reports a blank/hidden/non-clickable sandbox link, record `DELIVERY=FAIL` and switch transport rather than repeating the same mechanism;
+6. if no verified product-native transport is exposed, record `DELIVERY_BLOCKED_CURRENT_SURFACE` and say so explicitly.
 
-Do not say “the links above” unless actual visible link labels were emitted in the response. Package existence is not delivery.
+`skill.zip` remains a required release/validation artifact and rollback source. Multiple Skills remain separate Skill packages unless they are intentionally packaged through a supported higher-level product such as a Plugin.
 
-`skill.zip` remains a required release/validation artifact and rollback source even when it is not shown to the user. Multiple Skills remain separate packages; never create a multi-entrypoint Skill upload.
+## Workspace suite option
+
+Current official Plugin documentation says one plugin can contain multiple Skills. If suite-wide updates become frequent, evaluate a **skill-only SpireAgent Workspace Plugin** so Workspace Skills can be governed and installed as a suite rather than relying on repeated independent personal-Skill update flows. This is an evaluation item, not yet an adopted dependency.
 
 ## GitHub governance
 
