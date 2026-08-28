@@ -6,15 +6,23 @@ Checked against current public OpenAI documentation and selected public GitHub p
 
 ### ChatGPT Skills and Plugins
 
-OpenAI Skills are supported in ChatGPT, Codex, and the API. ChatGPT can create or modify Skills through chat. Plugins can package Skills together with connected apps and app templates for workflows that span ChatGPT and Codex.
+OpenAI Skills are supported in ChatGPT, Codex, and the API. ChatGPT can create or modify Skills through chat. Current official Plugin documentation says a single Plugin can contain multiple Skills, apps, and app templates.
 
-Use this for shared workflow behavior, not mutable Platform/STPD state. Workspace-level Skills belong to `SpireAgent-Workspace`; repo-owned Skills belong to the owning development repository.
+Use Skills for reusable workflow behavior, not mutable Platform/STPD state. Workspace-level Skills belong to `SpireAgent-Workspace`; repo-owned Skills belong to the owning development repository.
+
+For the current Workspace suite, **evaluate a skill-only SpireAgent Workspace Plugin** if repeated independent Skill installation/version updates become a burden. A Plugin may provide a cleaner suite-level install/governance surface than trying to make one chat turn render many edited personal-Skill cards. Do not migrate until the Plugin creation/update workflow and Business-workspace permissions are verified in product.
 
 Current primary sources: OpenAI Help `Skills in ChatGPT` and `Plugins in ChatGPT and Codex`.
 
 ### GitHub connector/app
 
 GitHub remains the simplest current bridge between ChatGPT web discussions and Codex-readable, versioned project context. `SpireAgent-Workspace` intentionally uses this as a small Codex-facing projection/relay rather than mirroring all Workspace knowledge.
+
+### ChatGPT Library
+
+Current official Library documentation says files uploaded to or created in ChatGPT are saved to Library where available and can be downloaded there. Treat Library as the durable human/ChatGPT file retrieval plane when product access is available.
+
+Do not confuse this documented Library behavior with internal `sandbox:/mnt/data/...` paths. Public OpenAI documentation reviewed here does not define sandbox Markdown paths as a stable user-facing download contract; current SpireAgent testing observed those links being hidden by the client.
 
 ### ChatGPT apps with sync
 
@@ -64,11 +72,12 @@ No mature, official direct ChatGPT **Library-to-Codex memory synchronization** p
 
 1. Keep the current small `SpireAgent-Workspace` Git relay plus repo-local Agent OS design.
 2. Use Workspace and repo-owned Skills for reusable workflows.
-3. Curate repeated public-web knowledge into Workspace/owning-repo references.
-4. Evaluate Plugins/apps with sync for external knowledge sources that are repeatedly used.
-5. Evaluate community MCP bridges only for a concrete workflow and after security review; do not make them project authority.
-6. Add a narrow first-party SpireAgent MCP only when a real missing data/action interface justifies it.
-7. Consider Codex App Server only when building a dedicated bridge/service becomes valuable.
-8. Consider Symphony only when task-queue scale and parallel-agent orchestration become a real bottleneck.
+3. Evaluate a skill-only Workspace Plugin if suite-wide Skill installation/versioning becomes operationally expensive.
+4. Curate repeated public-web knowledge into Workspace/owning-repo references.
+5. Evaluate Plugins/apps with sync for external knowledge sources that are repeatedly used.
+6. Evaluate community MCP bridges only for a concrete workflow and after security review; do not make them project authority.
+7. Add a narrow first-party SpireAgent MCP only when a real missing data/action interface justifies it.
+8. Consider Codex App Server only when building a dedicated bridge/service becomes valuable.
+9. Consider Symphony only when task-queue scale and parallel-agent orchestration become a real bottleneck.
 
 Avoid adding infrastructure whose only purpose is to duplicate information already legible through Git, files, or an existing plugin.
