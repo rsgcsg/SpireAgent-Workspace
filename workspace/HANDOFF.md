@@ -20,11 +20,14 @@ See `workspace/EXTERNAL_AGENT_TOOLING.md`.
 
 ### Skill rollout UX
 
-A 2026-08-28 direct renderer experiment prepared eight complete locally validated SpireAgent Skill packages in one ordinary Project conversation. The user saw exactly one native card: `spireagent-workspace-governor`. The other seven prepared Skills did not render as cards/downloads.
+Two direct-render experiments in the ordinary Project conversation now provide enough evidence to keep generic Project-chat rendering as an opportunistic shortcut rather than the default Skill deployment path:
 
-Therefore record generic Project-chat Skill rendering as `PARTIAL`, not PASS or FAIL.
+- first experiment: eight complete locally validated SpireAgent Skill packages were prepared; only the `spireagent-workspace-governor` native edited-Skill card rendered;
+- second experiment: six complete Skill update candidates were prepared after explicitly invoking the `@skill-creator` workflow; only the `workspace-knowledge-librarian` native edited-Skill card rendered.
 
-The reliable default create/update route is:
+Therefore record generic Project-chat suite rendering as `DIRECT_PROJECT_CHAT_RENDER=PARTIAL`.
+
+The reliable default create/update route remains:
 
 `Plugins -> Skills -> Create -> Create with chat`
 
@@ -35,7 +38,7 @@ This separates responsibilities cleanly:
 - Project conversation: project/workspace context, evidence, change design, validation target, prompt generation;
 - dedicated Skill-chat conversation: native Skill editor/install product UX.
 
-If an ordinary Project conversation actually renders the exact target Skill card, that card may be used opportunistically for that one Skill. Never infer that other prepared Skills were delivered from one visible card. For multi-Skill updates, batch the analysis but generate one dedicated Skill Chat Prompt per changed Skill by default. File/Library/Workspace-Git relay fallback remains available only when the dedicated Skill-chat route is unavailable or fails.
+If an ordinary Project conversation actually renders the exact target Skill card, that card may be used opportunistically for that one Skill. Never infer that other prepared Skills were delivered from one visible card, and do not promote ordinary Project-chat rendering to the default merely because `@skill-creator` was invoked. For multi-Skill updates, batch the analysis but generate one dedicated Skill Chat Prompt per changed Skill by default. File/Library/Workspace-Git relay fallback remains available only when the dedicated Skill-chat route is unavailable or fails.
 
 ### Prepared Skill candidates
 
@@ -44,8 +47,10 @@ Current locally validated candidates include:
 - `spireagent-workspace-governor@1.6.0` — bounded web-research routing and durable curation;
 - `workspace-knowledge-librarian@1.4.0` — web-source lifecycle and Library/product boundaries;
 - `spireagent-codex-prompt-writer@2.4.0` — bounded Codex web research plus token-aware subagent/Skill policy;
-- `workspace-skill-maintainer@1.9.1` — dedicated Skill Chat Prompt handoff as the default reliable create/update route, with generic Project-chat rendering explicitly classified as partial/opportunistic after the 1-of-8 render test.
+- `workspace-skill-maintainer@1.9.1` — dedicated Skill Chat Prompt handoff as the default reliable create/update route, with generic Project-chat rendering explicitly classified as partial/opportunistic.
 
 `workspace-skill-maintainer@1.9.1` local package SHA-256: `c53528a077b980c7f7b4bc22b39afadde82041d0c59a758dac6dc0d3b87bc277`.
+
+The second 1-of-6 direct-render experiment does not require another maintainer behavior/version bump: the currently installed 1.9.1 policy already specifies dedicated Skill Chat as the default and exact-target Project-chat cards as opportunistic only. Record the new experiment as deployment evidence rather than manufacturing a new Skill version with unchanged behavior.
 
 Do not promote candidate releases/manifest entries until actual ChatGPT product acceptance/deployment state is confirmed and the release/manifest is reconciled.
