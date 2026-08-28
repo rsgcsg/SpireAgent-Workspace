@@ -18,18 +18,14 @@ Project-specific SpireAgent Skills are intentionally stable workflow shells. The
 
 ## Default update UX
 
-Use the user command `更新 SpireAgent Skills` or `一键更新 SpireAgent Skills` for the governed update flow.
+Use `更新 SpireAgent Skills` or `一键更新 SpireAgent Skills` for the governed update flow.
 
-When the current ChatGPT conversation can render an existing Skill as an **edited Skill card**, that is the default user-facing delivery path:
+Prepare and validate the complete changed Skill set first. If the current ChatGPT product surface can actually render existing Skills as edited Skill cards/actions, prefer that surface over ZIP. When multiple edited cards/actions can be delivered in one response, present all changed Skills together. Do not impose one-by-one sequencing unless the product itself requires sequential interaction.
 
-1. prepare and validate one changed Skill;
-2. present that Skill directly in the conversation as an edited Skill;
-3. leave only the final `Save changes` / `保存更改` action to the user;
-4. verify the saved/installed state;
-5. only then present the next changed Skill.
+Do not require the user to pre-open Skill editors merely to expose an in-product update route. Do not promise that a card will appear unless the current product/tool surface can actually produce it. A rendered edited card is delivery evidence; save/install/product acceptance still requires confirmation.
 
-Do **not** require the user to navigate to or pre-open the Skill editor merely to expose this path. Do **not** present a stack of ZIP downloads when edited Skill cards are available. `skill.zip` remains the canonical validation/release artifact and fallback transport, not the default user update UX.
+`skill.zip` remains the canonical validation/release/rollback artifact and fallback transport, not the preferred user-facing UX when a real in-product edit surface is available.
 
-The maintainer still compares installed versions with this manifest, reuses canonical releases for deployment-only drift, and rebuilds only genuinely changed Skills. Narrow `chore/workspace/skill-update-*` PRs are eligible for automatic merge to `develop` after all Skill Governance checks pass; policy/router/workflow changes are not.
+The maintainer compares installed versions with this manifest, reuses canonical releases for deployment-only drift, and rebuilds only genuinely changed Skills. Narrow `chore/workspace/skill-update-*` PRs are eligible for automatic merge to `develop` after all Skill Governance checks pass; policy/router/workflow changes are not.
 
 Installed copies are deployments and may lead or lag this manifest during reconciliation. Repository merge does not itself prove ChatGPT/Codex installation or publication.
