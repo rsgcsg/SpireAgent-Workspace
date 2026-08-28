@@ -13,9 +13,10 @@ Keep these states separate:
 1. `LOCAL_VALIDATION`: skill-creator validator/package, references/scripts, ZIP integrity and SHA-256.
 2. `PRODUCT_SCAN`: actual ChatGPT product acceptance of the edited/uploaded Skill.
 3. `DEPLOYMENT`: actual save/install state.
-4. `REAL_INVOCATION`: representative behavior after the saved/installed update.
+4. `DELIVERY`: the user actually received an actionable card/action or visible working download link.
+5. `REAL_INVOCATION`: representative behavior after the saved/installed update.
 
-A local PASS or green GitHub CI is preflight evidence only. It does not prove the ChatGPT product accepted or saved the Skill.
+A local PASS or green GitHub CI is preflight evidence only. It does not prove the ChatGPT product accepted or saved the Skill, and it does not prove the user received the artifact.
 
 When rollout behavior is uncertain, check current official OpenAI product/developer documentation. Current documentation supports creating or modifying Skills through chat and prompting installation, but the current assistant runtime must still actually expose/render the relevant action before it is claimed available.
 
@@ -38,7 +39,7 @@ Required behavior:
 5. record each Skill's saved/installed/product result independently;
 6. only force sequential interaction when the product surface itself requires it.
 
-Do not promise that an edited Skill card will appear merely because one appeared previously. A prior 2026-08-28 reply promised a card below the message and no card rendered; this is explicit evidence that assistant instructions alone cannot force the product surface.
+Do not promise that an edited Skill card will appear merely because one appeared previously. Assistant prose cannot force the product surface.
 
 Rendering an edited card is delivery evidence, not save/install evidence.
 
@@ -49,6 +50,18 @@ Priority order:
 3. verified per-Skill `skill.zip` fallback.
 
 If priority 1 or 2 is not actually available in the current turn, priority 3 is mandatory. Never finish an explicit Skill-update request with neither a product action nor working download links.
+
+## Deterministic ZIP delivery gate
+
+For every user-facing ZIP fallback:
+
+1. copy the final package to a simple unique path directly under `/mnt/data`, e.g. `/mnt/data/<skill>-<version>-skill.zip`;
+2. after the copy, verify the exact final file exists, is non-empty, passes `unzip -t` or equivalent integrity checking, and matches the expected SHA-256;
+3. return one literal standalone Markdown sandbox link per Skill: `[Download <skill>](sandbox:/mnt/data/<filename>.zip)`;
+4. do not make a bullet/table/opaque file id the only user-facing reference;
+5. if the user reports a blank or missing link, record `DELIVERY=FAIL`, create fresh simple top-level filenames, re-verify, and immediately re-emit the links.
+
+Do not say “the links above” unless actual visible link labels were emitted in the response. Package existence is not delivery.
 
 `skill.zip` remains a required release/validation artifact and rollback source even when it is not shown to the user. Multiple Skills remain separate packages; never create a multi-entrypoint Skill upload.
 
