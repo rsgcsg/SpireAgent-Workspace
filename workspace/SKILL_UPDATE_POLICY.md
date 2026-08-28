@@ -8,34 +8,35 @@ Release a Workspace Skill only when its trigger, routing, authority/storage mode
 
 ## Product feasibility gate
 
-Track three independent states:
+Track four independent states:
 
 - `LOCAL_VALIDATION`: deterministic structure/package/integrity/hash tests;
 - `PRODUCT_SCAN`: actual ChatGPT product acceptance of the edited/uploaded Skill;
+- `DEPLOYMENT`: actual save/install state;
 - `REAL_INVOCATION`: representative behavior after the saved/installed update.
 
 Local validation and green CI are preflight evidence, not proof that ChatGPT accepted or saved the Skill.
 
 ## One-command user update
 
-`更新 SpireAgent Skills` and `一键更新 SpireAgent Skills` explicitly authorize the governed Workspace Skill update workflow: compare deployments with the manifest, reuse canonical release artifacts for deployment-only drift, rebuild only genuinely changed Skills, validate/package them, and prepare the governed remote reconciliation.
+`更新 SpireAgent Skills` and `一键更新 SpireAgent Skills` explicitly authorize the governed Workspace Skill update workflow: compare deployments with the manifest, reuse canonical release artifacts for deployment-only drift, rebuild only genuinely changed Skills, validate/package the full changed set, and prepare governed remote reconciliation.
 
 ### Default delivery contract
 
-If the current ChatGPT conversation can render an existing Skill as an **edited Skill card**, use that route before ZIP delivery.
+If the current ChatGPT conversation can actually render existing Skills as **edited Skill cards/actions**, use that route before ZIP delivery.
 
 For multiple changed Skills:
 
-1. prepare/validate one Skill;
-2. present that existing Skill directly in the conversation as edited;
-3. do **not** ask the user to navigate to or pre-open its editor merely to expose the surface;
-4. stop at the final `Save changes` / `保存更改` action;
-5. verify the resulting installed/version/product state;
-6. only then present the next Skill.
+1. prepare and validate the complete changed set first;
+2. if the product supports multiple edited cards/actions in one response, present all changed Skills together;
+3. do not ask the user to pre-open editors merely to expose the surface;
+4. leave only unavoidable `Save changes` / `保存更改` or equivalent product confirmations to the user;
+5. record each Skill's product/deployment result independently;
+6. only use sequential handoff when the product itself requires it.
 
-Rendering an edited card is delivery evidence, not save/install evidence. Never claim the deployment completed until the product confirms it or the installed version can be re-read.
+Do not infer a callable/renderable Skill-edit action from a screenshot, prior conversation, or the existence of the Skills UI. Never promise a card will appear unless the current surface can actually produce it. Rendering an edited card is delivery evidence, not save/install evidence.
 
-A complete validated `skill.zip` remains a release/rollback artifact. It is the user-facing fallback only when the conversation cannot provide an edited Skill card, no supported deployment API is available, or the user explicitly requests a ZIP.
+A complete validated `skill.zip` remains a release/rollback artifact. It is the user-facing fallback only when no usable in-product edit surface or supported deployment API is actually available, or when the user explicitly requests ZIP.
 
 ## Reconciliation closeout
 
