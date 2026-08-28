@@ -8,8 +8,9 @@ Release a Workspace Skill only when its trigger, routing, authority/storage mode
 
 ## Product feasibility gate
 
-Track five independent states:
+Track independent states:
 
+- `DIRECT_PROJECT_CHAT_RENDER`: whether the ordinary Project conversation actually rendered the requested native Skill card/action;
 - `LOCAL_VALIDATION`: deterministic structure/package/integrity/hash tests;
 - `PRODUCT_SCAN`: actual ChatGPT product acceptance of the created/modified/uploaded Skill;
 - `DEPLOYMENT`: actual save/install state;
@@ -19,6 +20,21 @@ Track five independent states:
 Local validation and green CI are preflight evidence, not proof that ChatGPT accepted/saved the Skill or that the user actually received the artifact.
 
 When Skill creation/edit/install/file-delivery behavior may have changed, check current official OpenAI Help/Developer documentation instead of relying only on remembered UI behavior.
+
+## Observed Project-chat renderer evidence — 2026-08-28
+
+A direct render experiment prepared eight complete locally validated SpireAgent Skill packages in one ordinary Project conversation. The client displayed only one native `spireagent-workspace-governor` edited-Skill card; the other seven prepared Skills did not render as cards/downloads.
+
+Record this as:
+
+`DIRECT_PROJECT_CHAT_RENDER=PARTIAL`
+
+Interpretation:
+
+- generic Project-chat native Skill rendering exists and may be used opportunistically when the exact target card actually appears;
+- one rendered card does not prove the other prepared Skills were delivered;
+- generic Project-chat multi-Skill rendering is not a reliable Workspace suite-update transport;
+- do not keep retrying the same renderer merely because one card appeared previously.
 
 ## Default native Skill update path
 
@@ -38,22 +54,22 @@ For an existing Skill, the prompt must:
 8. finish through the native Skill update/install flow;
 9. report the product save/install result back to the working conversation for reconciliation.
 
-For a new Skill, the same dedicated Skill-chat surface is the default creation path; omit the existing-Skill/no-duplicate clauses and provide the complete intended trigger, workflow, tools, outputs, and safety constraints.
+For a new Skill, use the same dedicated Skill-chat surface; omit the existing-Skill/no-duplicate clauses and provide the complete trigger, workflow, tools, outputs, and safety constraints.
 
 This split is deliberate:
 
-- the working Project conversation owns project context, cross-repo evidence, design, and exact change preparation;
+- the working Project conversation owns project context, cross-repo evidence, design, audit, and exact prompt preparation;
 - the dedicated Skill-chat conversation owns native Skill creation/edit/install UX.
 
 Do not make the user manually reconstruct requirements. The maintainer must provide the complete prompt.
 
-If the current conversation already exposes a stronger direct native Skill edit/save action for the target Skill, it may be used instead. If the dedicated Skill-chat path is unavailable or fails, fall back to a supported deployment API/action, native generated-file/Library delivery, or an explicitly authorized short-lived Workspace Git relay. `sandbox:/mnt/data/...` remains best-effort compatibility only and never proves delivery.
+If the current conversation actually renders the exact target Skill card/action, that card may be used for that Skill. Do not infer batch delivery from one card. If the dedicated Skill-chat path is unavailable or fails, fall back to a supported deployment API/action, native generated-file/Library delivery, or an explicitly authorized short-lived Workspace Git relay. `sandbox:/mnt/data/...` remains best-effort compatibility only and never proves delivery.
 
 ## One-command user update
 
 `更新 SpireAgent Skills` and `一键更新 SpireAgent Skills` explicitly authorize the governed Workspace Skill update workflow: compare deployments with the manifest, reuse canonical release artifacts for deployment-only drift, rebuild only genuinely changed Skills, validate/package the changed set, prepare one native Skill Chat Prompt per changed Skill by default, and prepare governed remote reconciliation.
 
-A combined multi-Skill prompt is acceptable only if the dedicated Skill-chat surface has been verified to update multiple existing Skills without ambiguity. Do not impose artificial one-by-one sequencing during analysis/preparation, but preserve product boundaries at deployment.
+Analysis/preparation may be batch-first. Deployment defaults to one dedicated Skill Chat Prompt per changed Skill so identity remains unambiguous. A combined multi-Skill prompt is acceptable only after the dedicated Skill-chat surface has been explicitly verified to update several existing Skills correctly.
 
 ## File delivery is a separate gate
 
@@ -70,7 +86,7 @@ For each ZIP fallback:
 7. if a sandbox link is blank, hidden, or non-clickable, set `DELIVERY=FAIL` and switch transport rather than repeating the same mechanism;
 8. if no verified transport is available, report `DELIVERY_BLOCKED_CURRENT_SURFACE` instead of claiming success.
 
-Never claim `DELIVERY=PASS` from file existence, hash output, assistant intent, or emitted sandbox Markdown alone.
+Never claim `DELIVERY=PASS` from file existence, hash output, assistant intent, emitted sandbox Markdown, or another Skill's visible card.
 
 ## Suite-level update option
 
