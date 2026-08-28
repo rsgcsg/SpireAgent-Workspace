@@ -27,18 +27,20 @@ For Workspace Skills, local validation, ChatGPT PRODUCT_SCAN, installed deployme
 
 When the current ChatGPT product surface can actually render existing Skills as edited Skill cards/actions, prefer that in-product route over ZIP. Prepare the full changed Skill set first. If the product supports multiple edited Skill cards/actions in one response, present all changed Skills together; do not impose artificial one-by-one sequencing. Only fall back to sequential interaction when the product surface itself requires it.
 
-Do not promise that an edited Skill card will appear merely because one appeared in a prior conversation or screenshot. A card/save/install is a product capability/result and must be actually visible or confirmed. ZIP remains a release/rollback artifact and fallback transport when no usable in-product edit/deployment surface is available or the user explicitly requests it.
+Do not promise that an edited Skill card will appear merely because one appeared in a prior conversation or screenshot. A 2026-08-28 reply promised a card below the message but no card rendered; treat that as explicit evidence that assistant policy text alone cannot force the product UI. A card/save/install is a product capability/result and must be actually visible or confirmed.
+
+ZIP remains a release/rollback artifact and fallback transport when no usable in-product edit/deployment surface is available or the user explicitly requests it.
 
 ## Skill routing
 
 - Workspace-wide routing/context/storage-plane selection: `spireagent-workspace-governor`
-- Current state/architecture/evidence/repo alignment: `spireagent-explainer`
-- Codex prompts/tasks/reference packets: `spireagent-codex-prompt-writer`
-- Conversation/meeting/PR/run organization: `spireagent-conversation-organizer`
-- New-chat/context-overflow handoff: `spireagent-context-handoff`
-- ChatGPT Library/Project knowledge lifecycle: `workspace-knowledge-librarian`
-- GitHub writes/branches/PRs: `github-remote-operator`
-- Workspace Skill version/update/packaging/reconciliation: `workspace-skill-maintainer` + built-in `skill-creator`
+- Current state, architecture, evidence, blocker, repo/history alignment: `spireagent-explainer`
+- Codex task/prompt/review/reference packet: `spireagent-codex-prompt-writer`
+- chat/meeting/PR/run organization: `spireagent-conversation-organizer`
+- context overflow/new chat/local handoff: `spireagent-context-handoff`
+- ChatGPT Library/Project knowledge lifecycle and storage planning: `workspace-knowledge-librarian`
+- explicit GitHub writes/branches/PR/merge: `github-remote-operator`
+- explicit Workspace Skill update/package/version/rollout/reconciliation: `workspace-skill-maintainer` + built-in `skill-creator`
 
 ## New-chat / cross-project bootstrap
 
