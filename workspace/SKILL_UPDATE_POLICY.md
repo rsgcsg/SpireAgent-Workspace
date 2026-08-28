@@ -2,63 +2,50 @@
 
 ## Stable-Skill model
 
-SpireAgent Skills are stable workflow/trigger bundles. They do not own mutable project status.
+SpireAgent Skills are stable workflow/trigger bundles. They do not own mutable project status. Current-state work refreshes `SpireAgent-Workspace` governance plus the exact owning Platform/STPD ref through GitHub.
 
-For current-state work, project-specific Skills use the GitHub connector to refresh:
-
-1. `rsgcsg/SpireAgent-Workspace` governance on `develop`;
-2. the exact owning `rsgcsg/STS2-AI-PLATFORM` or `rsgcsg/STS2-The-Perfect-Defect` ref;
-3. evidence at the correct source/runtime/Human/scientific boundary.
-
-Do not release a new Skill merely because a branch SHA, current objective, PR number, runtime artifact, or research result changed. Release a Skill when its trigger, routing, authority model, connector/tool workflow, output contract, or recurring failure pattern changes.
+Release a Skill only when its trigger, routing, authority/storage model, connector/tool workflow, output contract, or recurring failure pattern changes.
 
 ## Product feasibility gate
 
-Skill validity is not one boolean. Track three independent states:
+Track three independent states:
 
 - `LOCAL_VALIDATION`: deterministic structure/package/integrity/hash tests;
 - `PRODUCT_SCAN`: actual ChatGPT Skills upload result;
-- `REAL_INVOCATION`: representative behavior test after installation.
+- `REAL_INVOCATION`: representative behavior after installation.
 
-`LOCAL_VALIDATION=PASS` and green GitHub CI are necessary preflight evidence, not proof that ChatGPT accepts the Skill. For ChatGPT deployment, the upload scanner is authoritative.
-
-If the product UI reports `无效技能` / `Invalid skill`, `Needs Review`, or `Blocked`:
-
-1. record the exact product state;
-2. do not promote the package as known-good/deployable;
-3. compare it with contemporaneous packages that the same UI accepted;
-4. review unnecessary risk surface, especially implicit remote writes, self-modification/publishing/install behavior, broad context export, and combined admin/share/write authority;
-5. preserve legitimate safety restrictions while narrowing authority to the smallest viable workflow;
-6. rebuild and run a one-at-a-time product upload smoke test;
-7. promote to canonical only after product acceptance.
-
-A product-scan failure does not by itself prove the exact root cause. Treat risk-surface reduction as a compatibility hypothesis until a replacement is accepted.
+Local validation and green CI are preflight evidence, not proof that ChatGPT accepts the Skill. If the product reports invalid/review/blocked, record that exact state, reduce unnecessary risk surface without broadening authority, rebuild, and test one package at a time. Promote to canonical only after product acceptance.
 
 ## One-command user update
 
-The canonical user commands are:
+`更新 SpireAgent Skills` and `一键更新 SpireAgent Skills` explicitly authorize the governed Skill update workflow: compare deployments with the manifest, reuse canonical packages for deployment-only drift, rebuild only genuinely changed Skills, validate/package, and prepare the governed remote update.
 
-`更新 SpireAgent Skills`
+Repository update and ChatGPT installation remain separate actions unless a supported deployment API actually confirms installation.
 
-`一键更新 SpireAgent Skills`
+## Reconciliation closeout
 
-Those phrases authorize the maintainer to compare installed versions against `skills/SKILL_SUITE_MANIFEST.json`, reuse exact canonical archives for deployment-only drift, rebuild only genuinely changed Skills, validate/package them, and prepare the governed Workspace update.
+Every explicit Skill update or reported product upload result must close two common drift classes before it is called complete:
 
-A repository update is not the same as installing a Skill into ChatGPT/Codex. If no supported deployment API is available, return the changed packages and minimum upload steps; never claim silent installation.
+1. installed Skill version / observed product-scan state versus `skills/SKILL_SUITE_MANIFEST.json`;
+2. `workspace/CURRENT.md` owning-repo pointers versus live GitHub refs.
+
+If a product-accepted deployment is newer than the manifest, the remote canonical release is lagging and must be reconciled through the Skill-update lane. If CURRENT is stale, prepare a separate governance snapshot reconciliation. Do not cache the Workspace repository's own live `develop` SHA inside CURRENT because updating the file changes that SHA.
+
+Remote writes still belong to `github-remote-operator` and require the user request to authorize the governed write workflow.
 
 ## Automatic merge boundary
 
-Only same-repository PRs targeting `develop` whose branch starts with `chore/workspace/skill-update-` are eligible for the custom Skill auto-merge lane, and only after every `Skill Governance` matrix job succeeds.
+Only same-repository PRs targeting `develop` whose branch starts with `chore/workspace/skill-update-` are eligible for custom Skill auto-merge, and only after every Skill Governance matrix job succeeds.
 
-Auto-merge scope is intentionally narrow:
+Auto-merge scope remains narrow:
 
 - `skills/releases/**/skill.zip`
 - `skills/SKILL_SUITE_MANIFEST.json`
 - `skills/README.md`
 - `workspace/SKILL_ROLLOUT.md`
 
-Changes to governance authority, routers, validators, GitHub Actions workflows, or this policy require a normal reviewed PR and are never auto-merged by the Skill gate.
+Governance authority, router, CURRENT semantics, validators, Actions workflows, or this policy require a normal reviewed PR unless a future deterministic validator explicitly authorizes a narrower auto-sync path.
 
 ## Native GitHub auto-merge
 
-Repository-level GitHub **Allow auto-merge** may be enabled as an operator convenience, but it is not the safety mechanism for Skill releases. The custom Skill lane remains the authoritative scope gate. If native auto-merge is enabled, do not weaken branch rules, required status checks, or the Skill path whitelist.
+Repository-level GitHub **Allow auto-merge** may be enabled as an operator convenience, but it is not the Skill safety mechanism. The custom Skill lane remains the authoritative scope gate.
