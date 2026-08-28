@@ -16,39 +16,35 @@ Current suite:
 
 Project-specific SpireAgent Skills are intentionally stable workflow shells. They refresh mutable Workspace/Platform/STPD truth through the GitHub connector instead of embedding frequently changing project status in the Skill package.
 
-## Default create/update UX
+## Default update UX
 
 Use `更新 SpireAgent Skills` or `一键更新 SpireAgent Skills` for the governed update flow.
 
-The working Project conversation prepares and validates the change, then gives the user a complete **Skill Chat Prompt** for:
+Prepare and validate the complete changed Skill set first. Check current official OpenAI documentation when Skill creation/edit/install/file-delivery behavior may have changed.
+
+The reliable default create/update route is:
 
 `Plugins -> Skills -> Create -> Create with chat`
 
-For updates, the prompt must identify the existing Skill, say not to create a duplicate, use the currently installed Skill as baseline, include the exact requested behavior changes, require built-in `skill-creator`, preserve and validate the complete Skill, and finish through the native Skill update/install surface.
+The working Project conversation should generate one exact Skill Chat Prompt per changed Skill by default. For an existing Skill the prompt must preserve identity, say not to create a duplicate, use the current installed Skill as baseline, include the full change set, invoke built-in `skill-creator`, validate the full Skill, and finish through the native save/install UX.
 
-For new Skills, use the same dedicated Skill-chat route with a complete creation prompt.
+### Observed renderer evidence
 
-This is the preferred default because it intentionally enters the product workflow designed for Skill creation/modification. If a stronger direct native edited-Skill action is already exposed in the current conversation, use it instead.
+A 2026-08-28 ordinary Project-chat experiment prepared eight complete locally validated SpireAgent Skill packages. Only one native card (`spireagent-workspace-governor`) was visible. Therefore generic Project-chat Skill rendering is classified as `PARTIAL` and is opportunistic only; it is not the default suite-update transport.
 
-For multiple changed Skills, prepare the full set together but normally return one prompt per Skill so target identity stays unambiguous. Combine only after the product has been verified to update multiple existing Skills correctly in one native workflow.
+If the exact target Skill card is already visible in the current conversation, the user may use it for that Skill. Never infer that other prepared Skills were delivered from one visible card.
 
-## Fallback delivery order
-
-If the dedicated Skill-chat path is unavailable or fails:
+Fallback order when the dedicated Skill-chat route is unavailable or fails:
 
 1. supported deployment API/action when explicitly available and authorized;
-2. native generated-file attachment/file card for the validated package;
+2. native generated-file attachment/file card;
 3. Library retrieval/download for files actually created/saved in ChatGPT;
-4. explicitly authorized short-lived `SpireAgent-Workspace` `relay/*` download transport;
+4. explicitly authorized short-lived Workspace Git relay;
 5. `sandbox:` Markdown only as best-effort compatibility.
 
-Do not promise that a card or attachment will appear merely because one appeared previously. Do not treat package existence or emitted `sandbox:` Markdown as delivery success.
+`skill.zip` remains the canonical validation/release/rollback artifact. `LOCAL_VALIDATION=PASS` does not imply `DIRECT_PROJECT_CHAT_RENDER=PASS`, `DELIVERY=PASS`, `PRODUCT_SCAN=PASS`, or `DEPLOYMENT=PASS`.
 
-A Workspace Git relay is temporary delivery infrastructure only: it has zero canonical Skill authority, must not merge into `develop`/`main`, and must be removed after product acceptance/save or TTL expiry.
-
-`skill.zip` remains the canonical validation/release/rollback artifact. `LOCAL_VALIDATION=PASS` does not imply `DELIVERY=PASS`, `PRODUCT_SCAN=PASS`, or `DEPLOYMENT=PASS`.
-
-If Workspace-wide updates become frequent, evaluate a skill-only Workspace Plugin: current official Plugin documentation supports a single Plugin containing multiple Skills, which may offer a cleaner suite-level installation/governance surface.
+If Workspace-wide updates become frequent, evaluate a skill-only Workspace Plugin as a possible suite-level installation/governance surface; do not adopt it until product permissions and update semantics are verified.
 
 The maintainer compares installed versions with this manifest, reuses canonical releases for deployment-only drift, and rebuilds only genuinely changed Skills. Narrow `chore/workspace/skill-update-*` PRs are eligible for automatic merge to `develop` after all Skill Governance checks pass; policy/router/workflow changes are not.
 
