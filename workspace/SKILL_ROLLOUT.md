@@ -36,7 +36,9 @@ Required behavior:
 5. record each Skill's saved/installed/product result independently;
 6. only force sequential interaction when the product surface itself requires it.
 
-Do not promise that an edited Skill card will appear merely because one appeared previously. The current product/tool surface must actually provide that capability. Rendering an edited card is delivery evidence, not save/install evidence.
+Do not promise that an edited Skill card will appear merely because one appeared previously. A prior 2026-08-28 reply promised a card below the message and no card rendered; this is explicit evidence that assistant instructions alone cannot force the product surface. The current product/tool surface must actually provide the capability.
+
+Rendering an edited card is delivery evidence, not save/install evidence.
 
 Priority order:
 
