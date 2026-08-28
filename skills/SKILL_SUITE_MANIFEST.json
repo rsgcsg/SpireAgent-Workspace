@@ -3,7 +3,7 @@
   "schema_version": 2,
   "governance_repository": "rsgcsg/SpireAgent-Workspace",
   "source_authority": "validated_release_archive",
-  "updated": "2026-08-28T12:35:00+10:00",
+  "updated": "2026-08-28T12:53:00+10:00",
   "skills": {
     "github-remote-operator": {
       "version": "1.2.1",
@@ -48,10 +48,10 @@
       "package_sha256": "b77b4ab8d851adbaf98ca4a3e86e1151a5ec92fe2c5ac37addef3ab918b6104a"
     },
     "workspace-skill-maintainer": {
-      "version": "1.2.0",
+      "version": "1.2.1",
       "scope": "workspace-generic",
       "source_archive_path": "skills/releases/workspace-skill-maintainer/skill.zip",
-      "package_sha256": "58cfe68a8d0b2a634432aec72a409e5f1317dd8ce9e00077d5de5c0445783d1c"
+      "package_sha256": "e3c327a203a4d6b16b94fdbaaff64ed84879861eb0ddc947bb0e818434754a6c"
     }
   },
   "authority_note": "Each release archive contains the complete validated Skill source. Project-specific Skills are stable workflow shells and refresh mutable Workspace/Platform/STPD truth through GitHub. Platform/STPD repositories remain the authorities for code/runtime/research truth."
