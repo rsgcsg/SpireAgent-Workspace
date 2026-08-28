@@ -3,7 +3,7 @@
   "schema_version": 2,
   "governance_repository": "rsgcsg/SpireAgent-Workspace",
   "source_authority": "validated_release_archive",
-  "updated": "2026-08-28T12:06:00+10:00",
+  "updated": "2026-08-28T12:35:00+10:00",
   "skills": {
     "github-remote-operator": {
       "version": "1.2.1",
@@ -12,34 +12,34 @@
       "package_sha256": "323f0910668eec41c0f4a3182e80634bc25f1945a19910ed13a2a519a961076b"
     },
     "spireagent-codex-prompt-writer": {
-      "version": "2.1.1",
-      "scope": "spireagent-project",
-      "source_archive_path": "skills/releases/spireagent-codex-prompt-writer/skill.zip",
-      "package_sha256": "ee73339d0d3ceeb16a314edc71776a41c255502f5e05c52f1bc38f4950cf095e"
-    },
-    "spireagent-context-handoff": {
-      "version": "1.1.1",
-      "scope": "spireagent-project",
-      "source_archive_path": "skills/releases/spireagent-context-handoff/skill.zip",
-      "package_sha256": "7e681b5b48e9426a40549a873c684da7fb083ecbf94509ee83dc5bc1972c4f59"
-    },
-    "spireagent-conversation-organizer": {
       "version": "2.2.0",
       "scope": "spireagent-project",
+      "source_archive_path": "skills/releases/spireagent-codex-prompt-writer/skill.zip",
+      "package_sha256": "50095163ea8b41f180e7c80127525cf337ab9652a3f48fd93a3a5f2f80c59293"
+    },
+    "spireagent-context-handoff": {
+      "version": "1.2.0",
+      "scope": "spireagent-project",
+      "source_archive_path": "skills/releases/spireagent-context-handoff/skill.zip",
+      "package_sha256": "863c51eaea6801ef13a61631e6281a80b2988d6776373d49daeb2dbdfddfccc6"
+    },
+    "spireagent-conversation-organizer": {
+      "version": "2.3.0",
+      "scope": "spireagent-project",
       "source_archive_path": "skills/releases/spireagent-conversation-organizer/skill.zip",
-      "package_sha256": "4c3d76d5ab3b76482e4fc2a4234d7d2587ac778b571bae357c52561182c52eb4"
+      "package_sha256": "955ead4e98c40815d9e38e53d2a06064ba14ff87f7ded6ab86daf6c36d80ecf7"
     },
     "spireagent-explainer": {
-      "version": "2.1.1",
+      "version": "2.2.0",
       "scope": "spireagent-project",
       "source_archive_path": "skills/releases/spireagent-explainer/skill.zip",
-      "package_sha256": "2fb64d2d8ed2545a6fd588bef8c0e33e0e9ad2e50ecfcb88b945f123c2a6216c"
+      "package_sha256": "285eb74b70fd0d8fb6da8cc1092187950940b093fd5727c87f4c39918904a7fd"
     },
     "spireagent-workspace-governor": {
-      "version": "1.1.1",
+      "version": "1.2.0",
       "scope": "spireagent-project",
       "source_archive_path": "skills/releases/spireagent-workspace-governor/skill.zip",
-      "package_sha256": "551cb1e1614f2cbf3070eceb33680c6c82b5e86a005034fd0da1ed16c49a4a41"
+      "package_sha256": "16c4099f4a6cc8447c20da81583db0e2eba11f56f9db5bacd7d179427936f534"
     },
     "workspace-knowledge-librarian": {
       "version": "1.1.1",
@@ -48,11 +48,11 @@
       "package_sha256": "b77b4ab8d851adbaf98ca4a3e86e1151a5ec92fe2c5ac37addef3ab918b6104a"
     },
     "workspace-skill-maintainer": {
-      "version": "1.1.1",
+      "version": "1.2.0",
       "scope": "workspace-generic",
       "source_archive_path": "skills/releases/workspace-skill-maintainer/skill.zip",
-      "package_sha256": "e6f2bac733e20058b2087e85ffda35a8b83f4a522fa4b8ae817d4eac0464ca93"
+      "package_sha256": "58cfe68a8d0b2a634432aec72a409e5f1317dd8ce9e00077d5de5c0445783d1c"
     }
   },
-  "authority_note": "Each release archive contains the complete validated Skill source. Platform/STPD repositories remain the authorities for code/runtime/research truth."
+  "authority_note": "Each release archive contains the complete validated Skill source. Project-specific Skills are stable workflow shells and refresh mutable Workspace/Platform/STPD truth through GitHub. Platform/STPD repositories remain the authorities for code/runtime/research truth."
 }

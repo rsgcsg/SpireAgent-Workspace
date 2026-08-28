@@ -1,32 +1,21 @@
 # Workspace Skill Registry
 
-This directory is the canonical release/source authority for the SpireAgent workspace Skill suite.
+Canonical Skill deployment/source authority is `SKILL_SUITE_MANIFEST.json`. Each manifest entry points to one complete validated archive at `skills/releases/<skill-name>/skill.zip` and binds its exact SHA-256.
 
-Each governed Skill is stored as its complete validated `skill.zip` at:
-
-`skills/releases/<skill-name>/skill.zip`
-
-The archive contains the full Skill source (`SKILL.md`, `agents/`, `references/`, scripts/assets when present) and is also the deployable ChatGPT package. `SKILL_SUITE_MANIFEST.json` binds every release to a version and SHA-256.
-
-Installed ChatGPT/Codex copies are deployments and may lag the repository release. They never override repository authority.
-
-Run:
-
-```bash
-python scripts/validate_skill_suite.py
-```
-
-before merging Skill governance changes. The `Skill Governance` GitHub workflow performs the same hash/archive/version checks.
+Each ChatGPT Skill is installed separately. Never upload a multi-Skill archive as one Skill.
 
 Current suite:
+- spireagent-workspace-governor
+- spireagent-explainer
+- spireagent-codex-prompt-writer
+- spireagent-conversation-organizer
+- spireagent-context-handoff
+- github-remote-operator
+- workspace-knowledge-librarian
+- workspace-skill-maintainer
 
-- `spireagent-workspace-governor`
-- `spireagent-explainer`
-- `spireagent-codex-prompt-writer`
-- `spireagent-conversation-organizer`
-- `spireagent-context-handoff`
-- `github-remote-operator`
-- `workspace-knowledge-librarian`
-- `workspace-skill-maintainer`
+Project-specific SpireAgent Skills are intentionally stable workflow shells. They refresh mutable Workspace/Platform/STPD truth through the GitHub connector instead of embedding frequently changing project status in the Skill package.
 
-Skill updates require an explicit user request and must use `workspace-skill-maintainer` together with built-in `skill-creator`. Validate and package the complete changed Skill, replace its release archive, update the manifest, then roll out that exact archive to ChatGPT/Codex surfaces as appropriate.
+Use the user command `更新 SpireAgent Skills` for the governed update flow. The maintainer compares installed versions with this manifest, reuses canonical archives for deployment-only drift, rebuilds only genuinely changed Skills, and returns only changed packages. Narrow `chore/workspace/skill-update-*` PRs are eligible for automatic merge to `develop` after all Skill Governance checks pass; policy/router/workflow changes are not.
+
+Installed copies are deployments and may lag this manifest. Repository merge does not itself prove ChatGPT/Codex installation or publication.

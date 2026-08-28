@@ -6,12 +6,16 @@ on:
       - 'skills/**'
       - 'scripts/validate_skill_suite.py'
       - '.github/workflows/skill-governance.yml'
+      - 'workspace/SKILL_ROLLOUT.md'
+      - 'workspace/SKILL_UPDATE_POLICY.md'
   push:
     branches: [develop, main]
     paths:
       - 'skills/**'
       - 'scripts/validate_skill_suite.py'
       - '.github/workflows/skill-governance.yml'
+      - 'workspace/SKILL_ROLLOUT.md'
+      - 'workspace/SKILL_UPDATE_POLICY.md'
   workflow_dispatch:
 
 permissions:
@@ -19,7 +23,6 @@ permissions:
 
 jobs:
   validate:
-    name: validate / ${{ matrix.skill }}
     strategy:
       fail-fast: false
       matrix:
@@ -39,3 +42,46 @@ jobs:
         with:
           python-version: '3.11'
       - run: python scripts/validate_skill_suite.py --skill "${{ matrix.skill }}"
+
+  automerge-skill-update:
+    needs: validate
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.base.ref == 'develop' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      startsWith(github.event.pull_request.head.ref, 'chore/workspace/skill-update-') &&
+      github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Check narrow Skill-update scope
+        id: scope
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          eligible=true
+          while IFS= read -r file; do
+            case "$file" in
+              skills/releases/*/skill.zip|skills/SKILL_SUITE_MANIFEST.json|skills/README.md|workspace/SKILL_ROLLOUT.md)
+                ;;
+              *)
+                echo "Not auto-merge eligible: $file"
+                eligible=false
+                ;;
+            esac
+          done < <(gh api --paginate "repos/$REPO/pulls/$PR/files?per_page=100" --jq '.[].filename')
+          echo "eligible=$eligible" >> "$GITHUB_OUTPUT"
+
+      - name: Squash merge governed Skill update
+        if: steps.scope.outputs.eligible == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+        run: gh pr merge "$PR" --repo "$REPO" --squash --delete-branch
