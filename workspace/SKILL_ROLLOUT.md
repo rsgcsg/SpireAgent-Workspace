@@ -17,11 +17,13 @@ Keep these states separate:
 
 A local PASS or green GitHub CI is preflight evidence only. It does not prove the ChatGPT product accepted or saved the Skill.
 
+When rollout behavior is uncertain, check current official OpenAI product/developer documentation. Current documentation supports creating or modifying Skills through chat and prompting installation, but the current assistant runtime must still actually expose/render the relevant action before it is claimed available.
+
 ## One-command update
 
 The user can say `更新 SpireAgent Skills` or `一键更新 SpireAgent Skills`.
 
-The maintainer compares installed versions with the remote manifest, reuses canonical releases for deployment-only drift, rebuilds only genuinely changed Skills, validates/packages the full changed set, and selects the shortest product-supported handoff.
+The maintainer compares installed versions with the remote manifest, reuses canonical releases for deployment-only drift, rebuilds only genuinely changed Skills, validates/packages the full changed set, and selects the shortest actually supported handoff.
 
 ## Preferred product deployment
 
@@ -36,7 +38,7 @@ Required behavior:
 5. record each Skill's saved/installed/product result independently;
 6. only force sequential interaction when the product surface itself requires it.
 
-Do not promise that an edited Skill card will appear merely because one appeared previously. A prior 2026-08-28 reply promised a card below the message and no card rendered; this is explicit evidence that assistant instructions alone cannot force the product surface. The current product/tool surface must actually provide the capability.
+Do not promise that an edited Skill card will appear merely because one appeared previously. A prior 2026-08-28 reply promised a card below the message and no card rendered; this is explicit evidence that assistant instructions alone cannot force the product surface.
 
 Rendering an edited card is delivery evidence, not save/install evidence.
 
@@ -45,6 +47,8 @@ Priority order:
 1. real conversation-delivered in-product edited Skill surface;
 2. explicitly available and authorized deployment API that confirms the update;
 3. verified per-Skill `skill.zip` fallback.
+
+If priority 1 or 2 is not actually available in the current turn, priority 3 is mandatory. Never finish an explicit Skill-update request with neither a product action nor working download links.
 
 `skill.zip` remains a required release/validation artifact and rollback source even when it is not shown to the user. Multiple Skills remain separate packages; never create a multi-entrypoint Skill upload.
 
