@@ -8,16 +8,17 @@ Release a Workspace Skill only when its trigger, routing, authority/storage mode
 
 ## Product feasibility gate
 
-Track four independent states:
+Track five independent states:
 
 - `LOCAL_VALIDATION`: deterministic structure/package/integrity/hash tests;
 - `PRODUCT_SCAN`: actual ChatGPT product acceptance of the edited/uploaded Skill;
 - `DEPLOYMENT`: actual save/install state;
+- `DELIVERY`: user received an actionable card/action or visible working download link;
 - `REAL_INVOCATION`: representative behavior after the saved/installed update.
 
-Local validation and green CI are preflight evidence, not proof that ChatGPT accepted or saved the Skill.
+Local validation and green CI are preflight evidence, not proof that ChatGPT accepted/saved the Skill or that the user actually received the artifact.
 
-When Skill creation/edit/install behavior itself may have changed, check current official OpenAI Help/Developer documentation instead of relying only on remembered UI behavior. Official documentation currently confirms that ChatGPT can create or modify Skills through chat and prompt installation, but that does not prove every assistant runtime exposes a callable card-rendering action.
+When Skill creation/edit/install behavior itself may have changed, check current official OpenAI Help/Developer documentation instead of relying only on remembered UI behavior. Official documentation can confirm a product capability without proving every assistant runtime exposes a callable card-rendering action.
 
 ## One-command user update
 
@@ -33,14 +34,25 @@ For multiple changed Skills:
 2. if the product supports multiple edited cards/actions in one response, present all changed Skills together;
 3. do not ask the user to pre-open editors merely to expose the surface;
 4. leave only unavoidable `Save changes` / `保存更改` or equivalent product confirmations to the user;
-5. record each Skill's product/deployment result independently;
+5. record each Skill's product/deployment/delivery result independently;
 6. only use sequential handoff when the product itself requires it.
 
 Do not infer a callable/renderable Skill-edit action from a screenshot, prior conversation, or the existence of the Skills UI. Never promise a card will appear unless the current surface can actually produce it. Rendering an edited card is delivery evidence, not save/install evidence.
 
-The 2026-08-28 correction that motivated this rule is explicit: a prior reply promised a card below the message but no card rendered. Treat that as product-surface evidence that assistant policy text alone cannot force a Skill card.
-
 A complete validated `skill.zip` remains a release/rollback artifact and deterministic user-facing fallback. If no real in-product action is exposed, return verified clickable packages for the whole changed set in the same response. Never leave the user with neither cards nor download links.
+
+### ZIP delivery is a separate gate
+
+The 2026-08-28 repeated blank-link failure established that having a ZIP under a working directory is not enough. For every fallback package:
+
+1. restage the final archive to a simple unique file directly under `/mnt/data`;
+2. verify the exact final path exists and is non-empty;
+3. run ZIP integrity validation and SHA-256 on that exact final path;
+4. emit a literal standalone Markdown link such as `[Download <skill>](sandbox:/mnt/data/<filename>.zip)`;
+5. keep link text visible in normal prose, not only in a table/bare bullet;
+6. if the user reports blank/missing links, set `DELIVERY=FAIL`, restage to fresh top-level filenames, re-verify, and immediately issue replacement links.
+
+Never claim `DELIVERY=PASS` from file existence, hash output, or assistant intent alone.
 
 ## Reconciliation closeout
 
