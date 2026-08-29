@@ -367,19 +367,33 @@
   "adoption_decisions": [
     {
       "decision_id": "canonical-human-collector-20260829",
-      "status": "serialized_authorized_pending_native_restore_audit",
+      "status": "serialized_implemented_loaded_pending_human_canary",
       "owning_repo": "rsgcsg/STS2-AI-PLATFORM",
       "hypothesis": "one serialized Human mutation epoch can preserve same-runtime canonical S plus A(S), A, and S-prime",
-      "experiments": ["PR #3 calibration: 0 of 933 natural-observer rows are canonical", "bounded exact-source restore audit pending"],
-      "internalized_as": ["STS2-AI-PLATFORM docs/adr/0003-serialize-human-input-for-canonical-one-step-evidence.md"]
+      "experiments": [
+        "PR #3 calibration: 0 of 933 natural-observer rows are canonical",
+        "exact v0.111.0 source audit found no arbitrary decision-boundary restore primitive",
+        "Platform PR #3 source/tests implement one-mutation serialized canonical transitions",
+        "artifact b805474d3e99a8a2b1d13a00b0b5b92ea6b8cd06b57d6e65935c7870e54194e1 cold-loaded; Human latency and row qualification remain pending"
+      ],
+      "internalized_as": [
+        "STS2-AI-PLATFORM docs/adr/0003-serialize-human-input-for-canonical-one-step-evidence.md",
+        "STS2-AI-PLATFORM docs/evidence/SERIALIZED_HUMAN_INPUT_SOURCE_CLOSEOUT_2026-08-30.md"
+      ]
     },
     {
       "decision_id": "twin-runtime-primary-collector-20260829",
-      "status": "bounded_capability_audit_running",
+      "status": "rejected_primary_retained_differential",
       "owning_repo": "rsgcsg/STS2-AI-PLATFORM",
       "hypothesis": "a game-owned arbitrary-boundary restore primitive could remove full-prefix replay dependence",
-      "experiments": ["audit exact STS2 source, Reference Host, and Managed Exact for restore/import capability"],
-      "internalized_as": []
+      "experiments": [
+        "exact source audit found NetFullCombatState is checksum/divergence state rather than arbitrary restore",
+        "native save/load and replay rebuild from room or run anchors and retain full-prefix dependence",
+        "Reference and Managed Exact remain bounded differential tools; no primary twin collector was built"
+      ],
+      "internalized_as": [
+        "STS2-AI-PLATFORM docs/evidence/NATIVE_RESTORE_AND_TWIN_RUNTIME_AUDIT_2026-08-30.md"
+      ]
     }
   ]
 }
