@@ -6,7 +6,7 @@ The web Workspace/Library is the human/ChatGPT collaboration and persistent know
 
 ## Workspace Git governance / relay
 
-`rsgcsg/SpireAgent-Workspace` owns the small durable Codex-facing projection of selected Workspace knowledge plus cross-project routing, shared standards, Workspace-level Skill source/version governance, handoffs, knowledge maps/pointers, current snapshots, collaboration policy, and temporary relay rules.
+`rsgcsg/SpireAgent-Workspace` owns the small durable Codex-facing projection of selected Workspace knowledge plus cross-project routing, shared standards, Workspace-level Skill source/version governance, handoffs, knowledge maps/pointers, the external-resource registry/lifecycle, current snapshots, collaboration policy, and temporary relay rules.
 
 It does not own Platform/STPD source or their future repo-owned Skills.
 
@@ -25,6 +25,10 @@ For implementation/runtime/research claims:
 exact current code + exact runtime/research evidence > current canonical owning-repo docs > dated closeout/evidence within scope > Workspace Git snapshot/handoff > ChatGPT Library/Project summary > conversation memory/proposal.
 
 Workspace `CURRENT.md` and Library artifacts are locators/context, not substitutes for refreshing the owning repo.
+
+External-resource entries are pinned reference and adoption provenance. They do
+not override Platform game/runtime evidence or STPD research results; only an
+owning repository can internalize an external hypothesis.
 
 ## Independence rule
 

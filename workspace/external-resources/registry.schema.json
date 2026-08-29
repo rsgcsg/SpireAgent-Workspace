@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/rsgcsg/SpireAgent-Workspace/blob/develop/workspace/external-resources/registry.schema.json",
+  "title": "SpireAgent External Resource Registry",
+  "type": "object",
+  "required": ["schema", "checked_at", "source_packets", "resources", "adoption_decisions"],
+  "properties": {
+    "schema": { "const": "spireagent.external-resources/registry-1" },
+    "checked_at": { "type": "string", "format": "date" },
+    "source_packets": { "type": "array", "items": { "$ref": "#/$defs/source_packet" } },
+    "resources": { "type": "array", "items": { "$ref": "#/$defs/resource" } },
+    "adoption_decisions": { "type": "array", "items": { "$ref": "#/$defs/decision" } }
+  },
+  "$defs": {
+    "non_empty_strings": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "source_packet": {
+      "type": "object",
+      "required": ["packet_id", "filename", "sha256", "checked_at", "authority"],
+      "properties": {
+        "packet_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]+$" },
+        "filename": { "type": "string", "minLength": 1 },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "checked_at": { "type": "string", "format": "date" },
+        "authority": { "const": "reference_only" }
+      }
+    },
+    "resource": {
+      "type": "object",
+      "required": [
+        "resource_id", "display_name", "kind", "canonical_urls", "repository_url",
+        "pinned_ref", "checked_at", "license_observed", "license_source",
+        "reuse_policy", "authority_class", "adoption_status", "code_policy",
+        "evidence_level", "hypotheses", "experiments", "internalized_as",
+        "limitations", "refresh_triggers", "supersedes", "superseded_by",
+        "owning_repo_pointers"
+      ],
+      "properties": {
+        "resource_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]+$" },
+        "display_name": { "type": "string", "minLength": 1 },
+        "kind": { "type": "string", "minLength": 1 },
+        "canonical_urls": { "$ref": "#/$defs/non_empty_strings" },
+        "repository_url": { "type": "string", "pattern": "^https://" },
+        "workshop_url": { "type": ["string", "null"] },
+        "pinned_ref": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "release_version": { "type": ["string", "null"] },
+        "checked_at": { "type": "string", "format": "date" },
+        "game_compatibility": { "$ref": "#/$defs/non_empty_strings" },
+        "runtime_platform_assumptions": { "$ref": "#/$defs/non_empty_strings" },
+        "license_observed": { "type": "string", "minLength": 1 },
+        "license_source": { "type": "string", "minLength": 1 },
+        "terms_observed": { "type": "string" },
+        "reuse_policy": { "type": "string", "minLength": 1 },
+        "authority_class": { "type": "string" },
+        "adoption_status": { "type": "string" },
+        "code_policy": { "type": "string" },
+        "platform_relevance": { "$ref": "#/$defs/non_empty_strings" },
+        "stpd_relevance": { "$ref": "#/$defs/non_empty_strings" },
+        "workspace_relevance": { "$ref": "#/$defs/non_empty_strings" },
+        "evidence_level": { "$ref": "#/$defs/non_empty_strings" },
+        "hypotheses": { "$ref": "#/$defs/non_empty_strings" },
+        "experiments": { "$ref": "#/$defs/non_empty_strings" },
+        "internalized_as": { "type": "array", "items": { "type": "string" } },
+        "limitations": { "$ref": "#/$defs/non_empty_strings" },
+        "refresh_triggers": { "$ref": "#/$defs/non_empty_strings" },
+        "supersedes": { "type": "array", "items": { "type": "string" } },
+        "superseded_by": { "type": "array", "items": { "type": "string" } },
+        "owning_repo_pointers": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "decision": {
+      "type": "object",
+      "required": ["decision_id", "status", "owning_repo", "hypothesis", "experiments", "internalized_as"],
+      "properties": {
+        "decision_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]+$" },
+        "status": { "type": "string" },
+        "owning_repo": { "type": "string" },
+        "hypothesis": { "type": "string" },
+        "experiments": { "$ref": "#/$defs/non_empty_strings" },
+        "internalized_as": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

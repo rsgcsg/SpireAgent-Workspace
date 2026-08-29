@@ -24,6 +24,13 @@ Prefer official/primary sources, start with a small query budget, and stop when 
 
 See `workspace/EXTERNAL_AGENT_TOOLING.md` for reviewed current integration/orchestration options.
 
+The maintained cross-project index for external STS2 repositories, mods,
+tools, solvers, datasets, APIs, and research packets is
+[`workspace/external-resources/registry.json`](workspace/external-resources/registry.json).
+Its adjacent lifecycle policy governs pins, licenses, experiments, refresh, and
+supersession. Entries route provenance and hypotheses; only Platform or STPD can
+adopt a finding in their own code, tests, evidence, or adapters.
+
 ## Library/product boundary
 
 The ChatGPT product may visibly provide Library. Do not infer generic agent CRUD from the UI. Inventory/create/update/move/rename/delete Library items only when the active tool surface actually exposes those operations. Otherwise create/return the artifact through an available surface and report the remaining user-side Library step.
